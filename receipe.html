@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipes | Rangrez Masale — Authentic Recipes with Traditional Masala Flavors</title>
+<meta name="description" content="Discover authentic Indian recipes crafted with Rangrez Masale's heritage spice blends — Chicken, Mutton, Fish, Biryani, Curry and more. 62+ years of flavour, now in your kitchen.">
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="recipes.css">
+
+</head>
+<body>
+
+<!-- CROSS-SECTION FLYING PACKET -->
+<div id="crossSectionPacket">
+  <div class="csp-inner">
+    <div class="csp-stripe"><span class="csp-brand-text">RANGREZ MASALE</span></div>
+    <div class="csp-body">
+      <div class="csp-r">R</div>
+      <div class="csp-tag">Est. 1962</div>
+    </div>
+    <div class="csp-bottom"><span class="csp-weight">100g · NATURAL</span></div>
+  </div>
+</div>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay-bg" id="cartOverlay"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-head">
+    <h5 class="mb-0" style="font-family:'Playfair Display',serif;"><i class="fa-solid fa-bag-shopping me-2"></i>Your Cart</h5>
+    <button class="btn-close btn-close-white" id="closeCart" aria-label="Close cart"></button>
+  </div>
+  <div class="cart-drawer-body" id="cartItemsContainer">
+    <p class="text-center mt-5" style="color:var(--text-soft);">Your cart is empty. Time to spice things up!</p>
+  </div>
+  <div class="cart-drawer-foot">
+    <div class="d-flex justify-content-between mb-3">
+      <span style="font-weight:600;">Subtotal</span>
+      <span id="cartSubtotal" style="font-weight:700;color:var(--crimson);">₹0</span>
+    </div>
+    <button class="btn-crimson w-100" id="checkoutBtn">Proceed to Checkout <i class="fa-solid fa-arrow-right ms-1"></i></button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-luxe" id="toastLuxe"><i class="fa-solid fa-circle-check"></i><span id="toastMsg">Added to cart!</span></div>
+
+<!-- WISHLIST DRAWER -->
+<div class="wishlist-drawer" id="wishlistDrawer">
+  <div class="wishlist-drawer-head">
+    <h5 class="mb-0" style="font-family:'Playfair Display',serif;color:#fff;"><i class="fa-solid fa-heart me-2"></i>My Wishlist</h5>
+    <button class="btn-close btn-close-white" id="closeWishlist"></button>
+  </div>
+  <div class="wishlist-drawer-body" id="wishlistItemsContainer">
+    <p class="text-center mt-5 px-4" style="color:var(--text-soft);">No favourites yet — tap the heart on any product.</p>
+  </div>
+  <div class="wishlist-drawer-foot">
+    <button class="btn-crimson w-100" id="moveAllToCart">Move All to Cart <i class="fa-solid fa-cart-plus ms-1"></i></button>
+  </div>
+</div>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-wrap">
+    <input type="text" class="search-input-main" id="searchInputMain" placeholder="Search masalas, spices…" autocomplete="off">
+    <button class="search-close-btn" id="searchCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    <div class="search-results" id="searchResultsList"></div>
+    <p class="search-hint">Popular: Chicken Masala · Garam Masala · Turmeric Powder</p>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="auth-modal-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <div class="auth-modal-head">
+      <div class="brand-emblem mx-auto mb-3" style="width:52px;height:52px;font-size:1.4rem;">R</div>
+      <h4>Welcome Back</h4>
+      <p>Login or create your Rangrez account</p>
+      <button class="auth-close" id="authClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="auth-modal-body">
+      <div class="auth-tabs">
+        <div class="auth-tab active" data-tab="login">Login</div>
+        <div class="auth-tab" data-tab="register">Register</div>
+      </div>
+      <div class="auth-form active" id="loginForm">
+        <label class="auth-label">Email Address</label>
+        <input type="email" class="auth-input" placeholder="you@example.com">
+        <label class="auth-label">Password</label>
+        <input type="password" class="auth-input" placeholder="••••••••">
+        <button class="btn-crimson w-100" onclick="handleLogin()">Login to Account</button>
+        <div class="auth-divider">or</div>
+        <button class="btn-white-outline w-100" style="color:var(--charcoal);border-color:rgba(139,0,0,.2);font-size:.82rem;padding:12px;"><i class="fa-brands fa-google me-2" style="color:#ea4335;"></i>Continue with Google</button>
+      </div>
+      <div class="auth-form" id="registerForm">
+        <label class="auth-label">Full Name</label>
+        <input type="text" class="auth-input" placeholder="Priya Sharma">
+        <label class="auth-label">Mobile Number</label>
+        <input type="tel" class="auth-input" placeholder="+91 98765 43210">
+        <label class="auth-label">Email Address</label>
+        <input type="email" class="auth-input" placeholder="you@example.com">
+        <label class="auth-label">Password</label>
+        <input type="password" class="auth-input" placeholder="Min 8 characters">
+        <button class="btn-crimson w-100" onclick="handleRegister()">Create Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<div id="header"></div>
+
+<main id="main">
+
+<!-- ══════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════ -->
+<section class="rcp-recipe-hero">
+  <div class="container px-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-11 rcp-hero-inner">
+        <span class="rcp-rh-eyebrow-pill rcp-anim-1"><i class="fa-solid fa-utensils"></i> Recipes Crafted Around Our Masalas</span>
+        <h1 class="rcp-rh-hero-title rcp-anim-2">Authentic Recipes with <em>Traditional Masala Flavors</em></h1>
+        <p class="rcp-rh-hero-subtitle rcp-anim-3">From smoky street-side chaat to a slow Sunday mutton curry, every recipe here is built around a Rangrez Masale blend — hand-roasted and lab-tested since 1962, so the flavour your grandmother remembers turns up in your kitchen tonight.</p>
+        <div class="rcp-rh-cta-row rcp-anim-4">
+          <a href="#recipeGrid" class="btn-crimson"><i class="fa-solid fa-bowl-food"></i> Explore All Recipes</a>
+          <a href="#recipeGrid" class="btn-white-outline"><i class="fa-solid fa-magnifying-glass"></i> Find Your Recipe</a>
+        </div>
+        <!-- <div class="rcp-rh-stats-row rcp-anim-4">
+          <div class="rcp-rh-stat"><strong>20+</strong><span>Signature Recipes</span></div>
+          <div class="rcp-rh-stat"><strong>10</strong><span>Recipe Categories</span></div>
+          <div class="rcp-rh-stat"><strong>62+</strong><span>Years of Heritage</span></div>
+          <div class="rcp-rh-stat"><strong>4.8★</strong><span>Average Rating</span></div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     CATEGORIES
+══════════════════════════════════════════════ -->
+<section class="rcp-recipe-cat-section py-5 py-lg-5" style="padding-top:90px;padding-bottom:90px;">
+  <div class="container px-4">
+    <div class="rcp-sec-head-center" data-aos="fade-up">
+      <span class="rcp-sec-eyebrow">Browse By Category</span>
+      <h2 class="rcp-sec-title">Recipes for Every <em>Craving</em></h2>
+      <p class="rcp-sec-sub">Ten ways into our kitchen — pick a category and let the masala do the rest.</p>
+    </div>
+    <div class="row g-3" id="categoryGrid"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     RECIPE TABS + GRID
+══════════════════════════════════════════════ -->
+<section class="py-5" id="recipeGrid" style="background:var(--off-white);padding-top:80px;padding-bottom:90px;">
+  <div class="container px-4">
+    <div class="rcp-sec-head-center" data-aos="fade-up">
+      <span class="rcp-sec-eyebrow">Our Recipe Collection</span>
+      <h2 class="rcp-sec-title">Featured, Popular &amp; <em>Trending</em></h2>
+      <p class="rcp-sec-sub">Every recipe is paired with the exact masala blend used by our test kitchen — ingredients, technique and timing included.</p>
+    </div>
+    <div class="rcp-recipe-tab-nav" data-aos="fade-up">
+      <button class="rcp-recipe-tab-btn active" data-tab="all">All Recipes</button>
+      <button class="rcp-recipe-tab-btn" data-tab="featured">Featured</button>
+      <button class="rcp-recipe-tab-btn" data-tab="popular">Popular</button>
+      <button class="rcp-recipe-tab-btn" data-tab="trending">Trending</button>
+      <button class="rcp-recipe-tab-btn" data-tab="recent">Recently Added</button>
+    </div>
+    <div class="row g-4" id="recipeCardGrid"></div>
+    <div class="rcp-recipe-empty-state" id="recipeEmptyState">
+      <i class="fa-solid fa-bowl-rice"></i>
+      <h5 style="font-family:'Playfair Display',serif;color:var(--charcoal);">No recipes match your filters</h5>
+      <p>Try widening your search, or clear the filters to see all 20 recipes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     HOW TO USE OUR MASALA
+══════════════════════════════════════════════ -->
+<section class="rcp-howto-section py-5" style="padding-top:90px;padding-bottom:90px;">
+  <div class="container px-4">
+    <div class="rcp-sec-head-center" data-aos="fade-up">
+      <span class="rcp-sec-eyebrow">Cook Like It's Heritage</span>
+      <h2 class="rcp-sec-title">How to Use Our <em>Masala</em></h2>
+      <p class="rcp-sec-sub">Every blend has a moment it shines brightest. Here's how our test kitchen uses six of our most-loved masalas.</p>
+    </div>
+    <div class="row g-4" id="howtoGrid"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     COOKING TIPS & TRICKS
+══════════════════════════════════════════════ -->
+<section class="rcp-tips-section py-5" style="padding-top:90px;padding-bottom:90px;">
+  <div class="container px-4">
+    <div class="rcp-sec-head-center" data-aos="fade-up">
+      <span class="rcp-sec-eyebrow">From Our Test Kitchen</span>
+      <h2 class="rcp-sec-title">Cooking Tips &amp; <em>Tricks</em></h2>
+      <p class="rcp-sec-sub">Small habits, big difference — professional advice for getting the most out of every tin.</p>
+    </div>
+    <div class="row g-4" id="tipsGrid"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     CHEF'S RECOMMENDATIONS
+══════════════════════════════════════════════ -->
+<section class="rcp-chef-section py-5" style="padding-top:90px;padding-bottom:90px;">
+  <div class="container px-4">
+    <div class="rcp-sec-head-center" data-aos="fade-up">
+      <span class="rcp-sec-eyebrow" style="color:var(--gold-light);">Signature Pairings</span>
+      <h2 class="rcp-sec-title" style="color:#fff;">Chef's <em style="color:var(--gold-light);">Recommendations</em></h2>
+      <p class="rcp-sec-sub" style="color:rgba(255,255,255,.65);">Our in-house chefs' favourite masala-and-dish combinations — tested, tasted and approved.</p>
+    </div>
+    <div class="row g-4" id="chefGrid"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     VIDEO SHOWCASE
+══════════════════════════════════════════════ -->
+<section class="rcp-video-section py-5" style="padding-top:90px;padding-bottom:90px;">
+  <div class="container px-4">
+    <div class="rcp-sec-head-center" data-aos="fade-up">
+      <span class="rcp-sec-eyebrow">Watch &amp; Cook</span>
+      <h2 class="rcp-sec-title">Recipe <em>Video</em> Showcase</h2>
+      <p class="rcp-sec-sub">Step-by-step video walkthroughs for our most-requested recipes.</p>
+    </div>
+    <div class="row g-4" id="videoGrid"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════════ -->
+<section class="rcp-faq-section py-5" style="padding-top:90px;padding-bottom:90px;">
+  <div class="container px-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="rcp-sec-head-center" data-aos="fade-up">
+          <span class="rcp-sec-eyebrow">Good to Know</span>
+          <h2 class="rcp-sec-title">Frequently Asked <em>Questions</em></h2>
+        </div>
+        <div id="faqAccordion"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     CTA
+══════════════════════════════════════════════ -->
+<section class="rcp-recipe-cta py-5" style="padding-top:100px;padding-bottom:100px;">
+  <div class="container px-4 rcp-cta-inner" data-aos="fade-up">
+    <h2>Hungry Yet? Bring Heritage Flavour to Your Table</h2>
+    <p>Pick a recipe, grab the right masala, and cook the way our family has for 62 years — pure, natural and unmistakably authentic.</p>
+    <div class="rcp-rh-cta-row">
+      <a href="index.html#products" class="btn-crimson"><i class="fa-solid fa-bag-shopping"></i> Shop Our Masalas</a>
+      <a href="contact.html" class="btn-white-outline"><i class="fa-solid fa-comment-dots"></i> Talk to Us</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- RECIPE DETAIL MODAL -->
+<div class="rcp-recipe-modal-overlay" id="recipeModalOverlay">
+  <div class="rcp-recipe-modal" id="recipeModal"></div>
+</div>
+
+<!-- FOOTER -->
+<div id="footer"></div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+
+<script>
+// ── CART & WISHLIST STATE (shared with index.html via localStorage) ──
+let cart = JSON.parse(localStorage.getItem('rangrez_cart_v2') || '[]');
+let wishlist = JSON.parse(localStorage.getItem('rangrez_wishlist_v1') || '[]');
+
+const products = [
+  {id:1,name:"Royal Garam Masala",cat:"Garam Masala",img:"assets/image/home/garam-masala.webp",price:189,old:240,rating:4.8,reviews:312,stock:"In Stock"},
+  {id:2,name:"Hyderabadi Chicken Masala",cat:"Chicken Masala",img:"assets/image/home/chicken-masala.webp",price:165,old:200,rating:4.7,reviews:248,stock:"In Stock"},
+  {id:3,name:"Kashmiri Mutton Masala",cat:"Mutton Masala",img:"assets/image/home/mutton-masala.webp",price:210,old:260,rating:4.9,reviews:189,stock:"Only 6 left"},
+  {id:4,name:"Coastal Fish Masala",cat:"Fish Masala",img:"assets/image/home/fish-masala.webp",price:155,old:190,rating:4.6,reviews:144,stock:"In Stock"},
+  {id:5,name:"Tangy Sambar Powder",cat:"Sambar Powder",img:"assets/image/home/sambar-masala.webp",price:120,old:150,rating:4.7,reviews:201,stock:"In Stock"},
+  {id:6,name:"Pure Turmeric Powder",cat:"Turmeric Powder",img:"assets/image/home/turmeric-powder.webp",price:95,old:120,rating:4.9,reviews:410,stock:"In Stock"},
+  {id:7,name:"Fiery Chilli Powder",cat:"Chilli Powder",img:"assets/image/home/chilli-powder.webp",price:110,old:140,rating:4.5,reviews:167,stock:"Only 4 left"},
+  {id:8,name:"Classic Rasam Powder",cat:"Rasam Powder",img:"assets/image/home/rasam-powder.webp",price:105,old:130,rating:4.6,reviews:132,stock:"In Stock"},
+];
+
+function saveCart() { localStorage.setItem('rangrez_cart_v2', JSON.stringify(cart)); renderCart(); }
+function saveWishlist() { localStorage.setItem('rangrez_wishlist_v1', JSON.stringify(wishlist)); renderWishlist(); }
+
+function renderCart() {
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  const cartCountEl = document.getElementById('cartCount');
+  if (cartCountEl) cartCountEl.textContent = count;
+  const container = document.getElementById('cartItemsContainer');
+  const subtotalEl = document.getElementById('cartSubtotal');
+  if (!container) return;
+  if (!cart.length) {
+    container.innerHTML = '<p class="text-center mt-5" style="color:var(--text-soft);">Your cart is empty. Time to spice things up!</p>';
+    if (subtotalEl) subtotalEl.textContent = '₹0';
+    return;
+  }
+  let sub = 0;
+  container.innerHTML = cart.map((item, idx) => {
+    sub += item.price * item.qty;
+    return `<div class="cart-item">
+      <img src="${item.img}" alt="${item.name}">
+      <div class="cart-item-info">
+        <h6>${item.name}</h6>
+        <small>₹${item.price} × ${item.qty} = ₹${item.price * item.qty}</small>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+          <button onclick="changeCartQty(${idx},-1)" style="width:24px;height:24px;border-radius:50%;border:1px solid rgba(139,0,0,.2);background:transparent;cursor:pointer;color:var(--crimson);">−</button>
+          <span style="font-size:.82rem;font-weight:600;">${item.qty}</span>
+          <button onclick="changeCartQty(${idx},1)" style="width:24px;height:24px;border-radius:50%;border:1px solid rgba(139,0,0,.2);background:transparent;cursor:pointer;color:var(--crimson);">+</button>
+        </div>
+      </div>
+      <i class="fa-solid fa-trash remove-item" onclick="removeFromCart(${idx})"></i>
+    </div>`;
+  }).join('');
+  if (subtotalEl) subtotalEl.textContent = '₹' + sub;
+}
+
+function renderWishlist() {
+  const countEl = document.getElementById('wishlistCount');
+  if (countEl) { countEl.textContent = wishlist.length; countEl.style.display = wishlist.length > 0 ? 'flex' : 'none'; }
+  const container = document.getElementById('wishlistItemsContainer');
+  if (!container) return;
+  if (!wishlist.length) {
+    container.innerHTML = '<p class="text-center mt-5 px-4" style="color:var(--text-soft);">No favourites yet — tap the heart on any product.</p>';
+    return;
+  }
+  container.innerHTML = wishlist.map(id => {
+    const p = products.find(x => x.id === id);
+    if (!p) return '';
+    return `<div class="wishlist-item" style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);">
+      <img src="${p.img}" alt="${p.name}" style="width:56px;height:56px;border-radius:8px;object-fit:cover;">
+      <div style="flex:1;">
+        <h6 style="margin:0;font-size:.88rem;">${p.name}</h6>
+        <span style="color:var(--crimson);font-weight:700;">₹${p.price}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <button onclick="addToCartFromWishlist(${p.id})" style="font-size:.7rem;padding:5px 10px;background:var(--crimson);color:#fff;border:none;border-radius:4px;cursor:pointer;">Add to Cart</button>
+        <button onclick="removeWishlistItem(${p.id})" style="font-size:.7rem;padding:5px 10px;background:transparent;color:var(--text-soft);border:1px solid rgba(139,0,0,.2);border-radius:4px;cursor:pointer;">Remove</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function changeCartQty(idx, dir) { cart[idx].qty = Math.max(1, cart[idx].qty + dir); saveCart(); }
+function removeFromCart(idx) { cart.splice(idx, 1); saveCart(); }
+function removeWishlistItem(id) { wishlist = wishlist.filter(x => x !== id); saveWishlist(); }
+function addToCartFromWishlist(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  const ex = cart.find(i => i.id === id);
+  if (ex) ex.qty += 1; else cart.push({ ...p, qty: 1 });
+  saveCart();
+  showToast(p.name + ' added to cart!');
+}
+
+// ── CROSS-SECTION FLYING PACKET ──
+const csp = document.getElementById('crossSectionPacket');
+function launchPacket(btn, p) {
+  const cartIcon = document.getElementById('cartIconBtn');
+  const bRect = btn.getBoundingClientRect();
+  const cRect = cartIcon.getBoundingClientRect();
+  csp.style.transition = 'none';
+  csp.style.left = bRect.left + 'px';
+  csp.style.top = bRect.top + 'px';
+  csp.style.opacity = '1';
+  csp.style.transform = 'scale(1) rotate(0deg)';
+  requestAnimationFrame(() => {
+    csp.style.transition = 'all 0.9s cubic-bezier(0.18,0.89,0.32,1.28)';
+    csp.style.left = cRect.left + 'px';
+    csp.style.top = cRect.top + 'px';
+    csp.style.opacity = '0.15';
+    csp.style.transform = 'scale(0.15) rotate(720deg)';
+  });
+  setTimeout(() => { csp.style.opacity = '0'; csp.style.transition = 'none'; }, 950);
+  setTimeout(() => { cartIcon.style.transition = 'transform .15s'; cartIcon.style.transform = 'scale(1.35)'; }, 880);
+  setTimeout(() => { cartIcon.style.transform = 'scale(1)'; }, 1080);
+}
+
+// AUTH
+function handleLogin() {
+  document.getElementById('authOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  showToast('Welcome back to Rangrez Masale!');
+}
+function handleRegister() {
+  document.getElementById('authOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  showToast('Account created! Welcome to the family!');
+}
+
+// TOAST
+function showToast(msg) {
+  const t = document.getElementById('toastLuxe');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// RIPPLE
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('.btn-white,.btn-crimson,.btn-white-outline');
+  if (!btn) return;
+  const r = document.createElement('span');
+  r.className = 'ripple-effect';
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height) * 2;
+  r.style.width = r.style.height = size + 'px';
+  r.style.left = (e.clientX - rect.left - size / 2) + 'px';
+  r.style.top  = (e.clientY - rect.top  - size / 2) + 'px';
+  btn.style.position = 'relative';
+  btn.appendChild(r);
+  setTimeout(() => r.remove(), 700);
+});
+
+// ── NAV INIT — called after header.html is injected ──
+function initCaddNav() {
+  // Navbar scroll effect
+  const nav = document.getElementById('mainNav');
+  if (nav) window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 70));
+
+  // Cart drawer
+  const cartIconBtn = document.getElementById('cartIconBtn');
+  const drawer      = document.getElementById('cartDrawer');
+  const overlay     = document.getElementById('cartOverlay');
+  if (cartIconBtn && drawer && overlay) {
+    cartIconBtn.addEventListener('click', () => { drawer.classList.add('open'); overlay.classList.add('show'); document.body.style.overflow = 'hidden'; });
+    document.getElementById('closeCart').addEventListener('click', () => { drawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow = ''; });
+    overlay.addEventListener('click', () => { drawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow = ''; });
+  }
+
+  // Checkout button
+  document.getElementById('checkoutBtn')?.addEventListener('click', () => {
+    if (!cart.length) { showToast('Your cart is empty!'); return; }
+    showToast('Redirecting to secure checkout…');
+  });
+
+  // Wishlist drawer
+  const wishlistNavBtn = document.getElementById('wishlistNavBtn');
+  const wishlistDrawer = document.getElementById('wishlistDrawer');
+  if (wishlistNavBtn && wishlistDrawer) {
+    wishlistNavBtn.addEventListener('click', () => { wishlistDrawer.classList.add('open'); overlay.classList.add('show'); document.body.style.overflow = 'hidden'; });
+    document.getElementById('closeWishlist').addEventListener('click', () => { wishlistDrawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow = ''; });
+  }
+
+  // Move all wishlist items to cart
+  document.getElementById('moveAllToCart')?.addEventListener('click', () => {
+    if (!wishlist.length) { showToast('Your wishlist is empty!'); return; }
+    wishlist.forEach(id => {
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+      const ex = cart.find(i => i.id === id);
+      if (ex) ex.qty += 1; else cart.push({ ...p, qty: 1 });
+    });
+    wishlist = [];
+    saveCart(); renderWishlist();
+    showToast('All wishlist items moved to cart!');
+    wishlistDrawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow = '';
+  });
+
+  // Auth / Profile modal
+  document.getElementById('profileNavBtn')?.addEventListener('click', () => {
+    document.getElementById('authOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  document.getElementById('authClose')?.addEventListener('click', () => {
+    document.getElementById('authOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  });
+  document.getElementById('authOverlay')?.addEventListener('click', e => {
+    if (e.target.id === 'authOverlay') { e.target.classList.remove('open'); document.body.style.overflow = ''; }
+  });
+  document.querySelectorAll('.auth-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab + 'Form').classList.add('active');
+    });
+  });
+
+  // Search overlay
+  document.getElementById('searchNavBtn')?.addEventListener('click', () => {
+    document.getElementById('searchOverlay').classList.add('open');
+    setTimeout(() => document.getElementById('searchInputMain')?.focus(), 200);
+  });
+  document.getElementById('searchCloseBtn')?.addEventListener('click', () => {
+    document.getElementById('searchOverlay').classList.remove('open');
+  });
+  document.getElementById('searchInputMain')?.addEventListener('input', function () {
+    const q = this.value.trim().toLowerCase();
+    const list = document.getElementById('searchResultsList');
+    if (!q) { list.innerHTML = ''; return; }
+    const results = products.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q)).slice(0, 6);
+    if (!results.length) { list.innerHTML = '<p style="color:rgba(255,255,255,.4);font-size:.85rem;margin-top:14px;">No products found.</p>'; return; }
+    list.innerHTML = results.map(p => `
+      <div class="search-result-item" style="display:flex;align-items:center;gap:12px;padding:10px;cursor:pointer;border-radius:8px;transition:background .2s;"
+           onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background='transparent'">
+        <img src="${p.img}" alt="${p.name}" style="width:44px;height:44px;border-radius:8px;object-fit:cover;">
+        <div>
+          <h6 style="margin:0;font-size:.88rem;color:#fff;">${p.name}</h6>
+          <span style="font-size:.8rem;color:var(--gold-light);">₹${p.price} <del style="opacity:.5;">₹${p.old}</del></span>
+        </div>
+      </div>`).join('');
+  });
+
+  // ESC key closes overlays
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    document.getElementById('searchOverlay')?.classList.remove('open');
+    document.getElementById('authOverlay')?.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+
+  // Sync counts now that nav is in DOM
+  renderCart();
+  renderWishlist();
+}
+
+fetch("./header.html")
+  .then(r => r.text())
+  .then(html => {
+    document.getElementById("header").innerHTML = html;
+    initCaddNav();
+  });
+
+fetch('footer.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('footer').innerHTML = data;
+  });
+</script>
+
+
+<script>
+AOS.init({ duration: 650, once: true, offset: 50 });
+
+// ── NAVBAR SCROLL
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav && nav.classList.toggle('scrolled', window.scrollY > 70));
+
+/* ═══════════════════════════════════════════════════════
+   DATA — CATEGORIES
+   ═══════════════════════════════════════════════════════ */
+const categories = [
+  {name:"Chicken Recipes", img:"assets/image/home/chicken-masala.webp", count:"4 recipes"},
+  {name:"Mutton Recipes", img:"assets/image/home/mutton-masala.webp", count:"2 recipes"},
+  {name:"Fish Recipes", img:"assets/image/home/fish-masala.webp", count:"2 recipes"},
+  {name:"Biryani Recipes", img:"assets/image/home/garam-masala.webp", count:"1 recipe"},
+  {name:"Curry Recipes", img:"assets/image/home/sambar-masala.webp", count:"3 recipes"},
+  {name:"South Indian Recipes", img:"assets/image/home/rasam-powder.webp", count:"3 recipes"},
+  {name:"North Indian Recipes", img:"assets/image/home/garam-masala.webp", count:"3 recipes"},
+  {name:"Vegetarian Recipes", img:"assets/image/home/turmeric-powder.webp", count:"3 recipes"},
+  {name:"Street Food Recipes", img:"assets/image/home/chilli-powder.webp", count:"2 recipes"},
+  {name:"Special Masala Recipes", img:"assets/image/home/masalas.webp", count:"1 recipe"}
+];
+document.getElementById('categoryGrid').innerHTML = categories.map((c,i)=>`
+  <div class="col-lg-2 col-md-3 col-4" data-aos="fade-up" data-aos-delay="${(i%5)*60}">
+    <div class="rcp-cat-card" onclick="filterByCategory('${c.name}')">
+      <div class="rcp-cat-img"><img src="${c.img}" alt="${c.name}" loading="lazy"></div>
+      <div class="rcp-cat-body"><h6>${c.name}</h6><span>${c.count}</span></div>
+    </div>
+  </div>
+`).join('');
+
+/* ═══════════════════════════════════════════════════════
+   DATA — RECIPES
+   ═══════════════════════════════════════════════════════ */
+const recipes = [
+  {id:1,name:"Hyderabadi Chicken Curry",category:"Chicken Recipes",masala:"Chicken Masala",masalaImg:"assets/image/home/chicken-masala.webp",img:"assets/image/home/chicken-masala.webp",prep:15,cook:35,difficulty:"Medium",spice:"Medium",servings:4,rating:4.8,tags:["featured","popular"],desc:"A rich, slow-cooked Hyderabadi-style chicken curry where Chicken Masala does all the heavy lifting — bold, tangy and deeply aromatic.",ingredients:["500g chicken, curry-cut","3 tbsp Rangrez Chicken Masala","2 onions, finely sliced","2 tomatoes, pureed","1 cup curd","1 tbsp ginger-garlic paste","4 tbsp oil","Fresh coriander to garnish"],steps:["Heat oil and fry sliced onions until deep golden — don't rush this step.","Add ginger-garlic paste and cook for 2 minutes until the raw smell disappears.","Stir in tomato puree and cook until the oil starts to separate from the masala.","Add Chicken Masala and cook for another minute, then add the beaten curd.","Add chicken pieces, coat well, cover and cook on medium heat for 25 minutes.","Uncover, increase heat and cook for 5 more minutes to thicken the gravy.","Garnish with fresh coriander and serve with rice or naan."],tip:"Browning the onions deeply is what gives this curry its characteristic colour and sweetness — it's worth the extra 10 minutes."},
+  {id:2,name:"Butter Chicken",category:"Chicken Recipes",masala:"Chicken Masala",masalaImg:"assets/image/home/chicken-masala.webp",img:"assets/image/home/chicken-masala.webp",prep:20,cook:30,difficulty:"Easy",spice:"Mild",servings:4,rating:4.9,tags:["featured","popular","trending"],desc:"The classic North Indian favourite — tender chicken in a velvety tomato-cream sauce elevated with Rangrez Chicken Masala.",ingredients:["500g chicken, boneless","2 tbsp Rangrez Chicken Masala","3 tomatoes, pureed","1/4 cup cashew paste","3 tbsp butter","1/4 cup cream","1 tsp sugar"],steps:["Marinate chicken with 1 tbsp Chicken Masala and curd for 20 minutes, then grill or pan-sear.","Heat butter and cook tomato puree until thick and dark red.","Add cashew paste and remaining Chicken Masala, cook for 3 minutes.","Add water to adjust consistency, simmer for 10 minutes.","Add grilled chicken, sugar and cream, simmer gently for 5 minutes.","Finish with a swirl of cream and serve with naan."],tip:"Adding a pinch of sugar balances the tomato's acidity and is the secret behind that restaurant-style rounded sweetness."},
+  {id:3,name:"Chicken Tikka",category:"Chicken Recipes",masala:"Chicken Masala",masalaImg:"assets/image/home/chicken-masala.webp",img:"assets/image/home/chicken-masala.webp",prep:30,cook:20,difficulty:"Easy",spice:"Hot",servings:3,rating:4.7,tags:["popular","trending"],desc:"Smoky, charred cubes of marinated chicken where Chicken Masala delivers that tandoor-like heat from your regular oven or grill.",ingredients:["400g boneless chicken, cubed","2 tbsp Rangrez Chicken Masala","1/2 cup thick curd","1 tbsp lemon juice","1 tbsp ginger-garlic paste","1 tsp Kashmiri chilli powder","2 tbsp oil"],steps:["Combine curd, lemon juice, Chicken Masala, chilli powder and oil into a marinade.","Add chicken cubes and coat thoroughly, marinate for at least 30 minutes.","Thread onto skewers and grill at high heat or bake at 220°C for 15-20 minutes.","Turn halfway through for even char.","Serve with mint chutney and sliced onion rings."],tip:"Squeeze lemon juice on the tikka right off the grill — the acid on hot chicken amplifies the aroma immediately."},
+  {id:4,name:"Classic Chicken Biryani",category:"Chicken Recipes",masala:"Biryani Masala",masalaImg:"assets/image/home/garam-masala.webp",img:"assets/image/home/chicken-masala.webp",prep:30,cook:45,difficulty:"Hard",spice:"Medium",servings:5,rating:4.9,tags:["featured","trending"],desc:"A layered dum biryani where chicken marinated in Biryani Masala and basmati rice cook together for that unmistakable fragrant finish.",ingredients:["600g chicken, curry-cut","3 tbsp Rangrez Biryani Masala","2 cups basmati rice, soaked","1 cup fried onions","1/2 cup mint leaves","1/4 cup saffron milk","4 tbsp ghee","1 cup curd"],steps:["Marinate chicken with curd and Biryani Masala for at least 1 hour.","Parboil soaked rice with whole spices until 60% cooked, drain well.","Layer marinated chicken at the bottom of a heavy pot.","Layer parboiled rice on top, scatter fried onions and mint leaves.","Drizzle saffron milk and ghee, seal the pot and cook on dum for 30 minutes on low heat.","Rest for 10 minutes before opening and gently mixing."],tip:"Use a tight dough seal on the pot lid to trap steam — this is what gives dum biryani its trapped-fragrance character."},
+  {id:5,name:"Mutton Rogan Josh",category:"Mutton Recipes",masala:"Mutton Masala",masalaImg:"assets/image/home/mutton-masala.webp",img:"assets/image/home/mutton-masala.webp",prep:20,cook:60,difficulty:"Hard",spice:"Hot",servings:4,rating:4.8,tags:["featured"],desc:"A Kashmiri slow-cook classic — bone-in mutton braised with Mutton Masala until the meat falls off the bone into a deep red, earthy gravy.",ingredients:["600g mutton, bone-in","4 tbsp Rangrez Mutton Masala","2 onions, sliced","1 cup curd","4 tbsp mustard oil","Whole spices: bay leaf, cardamom, cloves","Fresh coriander"],steps:["Heat mustard oil to smoking point, reduce heat and add whole spices.","Add sliced onions and cook until golden brown.","Add mutton pieces and sear on high heat for 5 minutes until browned.","Stir in Mutton Masala and cook for 2 minutes.","Add beaten curd gradually, stirring continuously.","Add 1.5 cups hot water, cover and pressure cook for 4 whistles or simmer for 50 minutes.","Garnish with coriander and serve with rice."],tip:"Mustard oil adds authentic Kashmiri character — always heat it to smoking point first to mellow its sharpness before adding other ingredients."},
+  {id:6,name:"Mutton Biryani",category:"Biryani Recipes",masala:"Biryani Masala",masalaImg:"assets/image/home/garam-masala.webp",img:"assets/image/home/garam-masala.webp",prep:40,cook:60,difficulty:"Hard",spice:"Medium",servings:6,rating:4.9,tags:["featured","popular","trending"],desc:"Layered basmati rice and marinated mutton, dum-cooked together with Biryani Masala for that unmistakable, fragrant restaurant finish.",ingredients:["600g mutton, marinated overnight","2.5 cups basmati rice, soaked","4 tbsp Rangrez Biryani Masala","1 cup fried onions","1/2 cup mint & coriander leaves","1/4 cup saffron milk","4 tbsp ghee","2 tbsp curd"],steps:["Marinate mutton overnight with curd, Biryani Masala and ginger-garlic paste.","Cook marinated mutton until 80% tender, retaining some gravy.","Parboil soaked basmati rice with whole spices until 70% cooked.","Layer the mutton gravy at the bottom of a heavy-bottomed pot.","Layer the parboiled rice on top, followed by fried onions, mint and coriander.","Drizzle saffron milk and ghee over the top layer.","Seal the pot with a tight lid or dough, and cook on dum for 25 minutes on low heat."],tip:"Always parboil the rice slightly under-done since it finishes cooking on dum, and seal the pot tightly so no steam escapes during the dum stage."},
+  {id:7,name:"Mutton Keema with Peas",category:"North Indian Recipes",masala:"Mutton Masala",masalaImg:"assets/image/home/mutton-masala.webp",img:"assets/image/home/mutton-masala.webp",prep:15,cook:25,difficulty:"Easy",spice:"Medium",servings:4,rating:4.5,tags:["popular"],desc:"Quick-cooking minced mutton tossed with green peas and Mutton Masala — a weeknight North Indian staple that pairs beautifully with parathas.",ingredients:["500g mutton keema","2 tbsp Rangrez Mutton Masala","1 cup green peas","2 onions, finely chopped","2 tomatoes, chopped","1 tbsp ginger-garlic paste","3 tbsp oil","Fresh coriander"],steps:["Heat oil and saute onions until golden.","Add ginger-garlic paste and chopped tomatoes, cook until soft.","Add Mutton Masala and cook for 1 minute to release the aroma.","Add keema and cook on high heat, breaking lumps, for 8 minutes.","Add green peas and a splash of water, cover and simmer for 12 minutes.","Garnish with fresh coriander and serve hot."],tip:"Break up the keema thoroughly while it sears to avoid clumps, and add peas slightly later so they stay vibrant rather than overcooked."},
+  {id:8,name:"Goan Fish Curry",category:"Fish Recipes",masala:"Fish Masala",masalaImg:"assets/image/home/fish-masala.webp",img:"assets/image/home/fish-masala.webp",prep:15,cook:25,difficulty:"Easy",spice:"Medium",servings:4,rating:4.7,tags:["featured","trending"],desc:"A coconut-rich, tangy fish curry from the coast, where Fish Masala and kokum work together to balance heat with a gentle sourness.",ingredients:["500g fish fillets (pomfret or kingfish)","3 tbsp Rangrez Fish Masala","1 cup coconut milk","2 kokum petals or tamarind pulp","1 onion, sliced","2 green chillies, slit","2 tbsp coconut oil"],steps:["Heat coconut oil and saute sliced onions until translucent.","Add Fish Masala and cook for a minute until fragrant.","Pour in coconut milk and bring to a gentle simmer.","Add kokum or tamarind pulp for the signature tang.","Slide in fish fillets carefully and simmer for 10-12 minutes.","Add slit green chillies in the last 2 minutes and serve with steamed rice."],tip:"Add the fish only once the gravy is simmering gently, and avoid stirring too much once it's in — this keeps the fillets from breaking apart."},
+  {id:9,name:"Amritsari Fish Fry",category:"Street Food Recipes",masala:"Fish Masala",masalaImg:"assets/image/home/fish-masala.webp",img:"assets/image/home/fish-masala.webp",prep:20,cook:15,difficulty:"Easy",spice:"Hot",servings:3,rating:4.6,tags:["popular"],desc:"Crispy gram-flour battered fish, punched up with Fish Masala and ajwain — a Punjabi street food classic best eaten standing at the stall.",ingredients:["400g boneless fish chunks","2 tbsp Rangrez Fish Masala","1 cup gram flour (besan)","1 tbsp lemon juice","1 tsp ajwain (carom seeds)","1 tsp Kashmiri chilli powder","Oil for frying"],steps:["Marinate fish chunks with lemon juice, Fish Masala and chilli powder for 20 minutes.","Make a thick batter with gram flour, ajwain and a little water.","Dip marinated fish pieces into the batter, coating evenly.","Deep fry on medium-high heat until golden and crisp on both sides.","Drain on a paper towel and serve immediately with mint chutney."],tip:"Keep the batter thick rather than runny for a cleaner, crispier coat, and fry in small batches so the oil temperature doesn't drop."},
+  {id:10,name:"Vegetable Biryani",category:"Vegetarian Recipes",masala:"Biryani Masala",masalaImg:"assets/image/home/garam-masala.webp",img:"assets/image/home/garam-masala.webp",prep:25,cook:40,difficulty:"Medium",spice:"Mild",servings:4,rating:4.5,tags:["recent"],desc:"A vegetable-forward take on the classic, where seasonal vegetables soak up Biryani Masala alongside fragrant basmati rice.",ingredients:["2 cups basmati rice, soaked","3 tbsp Rangrez Biryani Masala","2 cups mixed vegetables (carrot, beans, peas, potato)","1 cup fried onions","1/2 cup curd","4 tbsp ghee","Mint & coriander leaves"],steps:["Parboil soaked rice with whole spices until 70% cooked, then drain.","Heat ghee and saute mixed vegetables until just tender.","Stir in Biryani Masala and curd, cooking for 3-4 minutes.","Layer the vegetable mixture in a heavy pot, top with parboiled rice.","Scatter fried onions, mint and coriander over the rice layer.","Cover tightly and cook on dum over low heat for 20 minutes."],tip:"Don't overcook the vegetables before layering — they'll finish cooking during the dum stage and turn mushy otherwise."},
+  {id:11,name:"Paneer Butter Masala",category:"Vegetarian Recipes",masala:"Paneer Masala",masalaImg:"assets/image/home/masalas.webp",img:"assets/image/home/sambar-masala.webp",prep:15,cook:20,difficulty:"Easy",spice:"Mild",servings:4,rating:4.8,tags:["featured","popular"],desc:"Soft paneer cubes simmered in a velvety tomato-cashew gravy, finished with Paneer Masala for warmth without overwhelming the dish's sweetness.",ingredients:["300g paneer, cubed","2 tbsp Rangrez Paneer Masala","3 tomatoes, pureed","2 tbsp cashew paste","2 tbsp butter + 2 tbsp cream","1 tsp sugar","Salt to taste"],steps:["Melt butter and cook tomato puree until thick and glossy.","Stir in cashew paste and Paneer Masala, cook for 2 minutes.","Add 1/2 cup water and simmer for 8 minutes until the gravy thickens.","Add sugar to balance the tang, then gently fold in paneer cubes.","Simmer for 5 minutes, finish with cream, and serve with naan."],tip:"Soak the paneer cubes in warm water for 10 minutes before adding if they feel firm — it keeps them soft in the finished gravy."},
+  {id:12,name:"Egg Curry Masala",category:"Curry Recipes",masala:"Egg Masala",masalaImg:"assets/image/home/masalas.webp",img:"assets/image/home/rasam-powder.webp",prep:10,cook:20,difficulty:"Easy",spice:"Medium",servings:3,rating:4.6,tags:["recent","popular"],desc:"Boiled eggs simmered in a spiced onion-tomato gravy with Egg Masala — a quick, protein-rich curry that's a weeknight lifesaver.",ingredients:["6 eggs, boiled & halved","2 tbsp Rangrez Egg Masala","2 onions, finely chopped","2 tomatoes, pureed","1 tbsp ginger-garlic paste","3 tbsp oil","Fresh coriander"],steps:["Heat oil and saute onions until golden brown.","Add ginger-garlic paste and cook until the raw smell disappears.","Add tomato puree and cook until oil separates.","Stir in Egg Masala and cook for a minute, then add water to adjust gravy.","Simmer for 8 minutes, then gently slide in the boiled eggs.","Simmer for 5 more minutes and garnish with coriander before serving."],tip:"Lightly score the boiled eggs before adding them so the gravy seeps in, and add eggs at the end to prevent them turning rubbery."},
+  {id:13,name:"Andhra Chicken Curry",category:"South Indian Recipes",masala:"Chicken Masala",masalaImg:"assets/image/home/chicken-masala.webp",img:"assets/image/home/chicken-masala.webp",prep:15,cook:35,difficulty:"Medium",spice:"Hot",servings:4,rating:4.7,tags:["trending"],desc:"A fiery, curry-leaf-laced Andhra-style chicken curry where Chicken Masala meets Kashmiri chilli for colour without unbearable heat.",ingredients:["500g chicken curry-cut","3 tbsp Rangrez Chicken Masala","2 tbsp Kashmiri chilli powder","2 onions, sliced","1 tbsp tamarind pulp","Curry leaves","4 tbsp sesame oil"],steps:["Heat sesame oil and fry curry leaves until crisp, then set aside.","Saute sliced onions in the same oil until deep brown.","Add Chicken Masala and Kashmiri chilli powder, cook for 2 minutes.","Add chicken and sear on high heat for 5 minutes.","Add tamarind pulp and a cup of water, then cover and simmer for 25 minutes.","Top with the fried curry leaves before serving."],tip:"Frying the curry leaves separately first and adding them at the end keeps their aroma sharp instead of muting it in the gravy."},
+  {id:14,name:"Sambar with Drumstick",category:"South Indian Recipes",masala:"Sambar Powder",masalaImg:"assets/image/home/sambar-masala.webp",img:"assets/image/home/sambar-masala.webp",prep:15,cook:25,difficulty:"Easy",spice:"Mild",servings:4,rating:4.7,tags:["featured"],desc:"A comforting lentil-and-vegetable stew tied together by Sambar Powder, finished with a crackling tadka of mustard seeds and curry leaves.",ingredients:["1 cup toor dal, cooked","3 tbsp Rangrez Sambar Powder","2 drumsticks, chopped","1 small onion, chopped","1 tbsp tamarind pulp","1 tomato, chopped","Mustard seeds, curry leaves, dry red chilli","2 tbsp ghee"],steps:["Cook toor dal until soft and mash lightly.","In a pot, cook drumstick and tomato with a little water until tender.","Add the mashed dal, tamarind pulp and Sambar Powder, mix well.","Simmer for 10 minutes, adjusting consistency with water as needed.","Heat ghee in a small pan, crackle mustard seeds, curry leaves and dry red chilli.","Pour the tadka over the sambar and serve with rice or idli."],tip:"Add the tamarind pulp before the Sambar Powder, not after, so the spice doesn't turn bitter when boiled with the sour pulp for too long."},
+  {id:15,name:"Rasam with Pepper & Cumin",category:"South Indian Recipes",masala:"Rasam Powder",masalaImg:"assets/image/home/rasam-powder.webp",img:"assets/image/home/rasam-powder.webp",prep:10,cook:20,difficulty:"Easy",spice:"Medium",servings:4,rating:4.5,tags:["recent"],desc:"A thin, peppery South Indian soup-curry built on Rasam Powder, tomato and tamarind — the dish that fixes a cold and finishes a meal equally well.",ingredients:["2 tbsp Rangrez Rasam Powder","2 tomatoes, chopped","1 tbsp tamarind pulp","1/4 cup cooked toor dal","Curry leaves, mustard seeds, dry red chilli","1 tbsp ghee","Fresh coriander"],steps:["Boil chopped tomatoes with tamarind pulp and 3 cups water.","Add Rasam Powder and cooked dal, simmer for 10 minutes.","Heat ghee, crackle mustard seeds, curry leaves and dry red chilli.","Pour the tempering over the simmering rasam.","Garnish with coriander and serve hot with steamed rice."],tip:"Never let rasam boil hard once the tempering is added — a gentle simmer keeps it fragrant instead of flat."},
+  {id:16,name:"Pepper Chicken Fry",category:"Chicken Recipes",masala:"Pepper Masala",masalaImg:"assets/image/home/masalas.webp",img:"assets/image/home/chicken-masala.webp",prep:20,cook:20,difficulty:"Medium",spice:"Hot",servings:3,rating:4.6,tags:["trending"],desc:"Dry-roasted chicken pieces coated in cracked black pepper and Pepper Masala — a South Indian favourite that's all about bold, peppery heat.",ingredients:["400g chicken, boneless","3 tbsp Rangrez Pepper Masala","1 tbsp crushed black pepper","2 onions, sliced","Curry leaves","3 tbsp oil"],steps:["Marinate chicken with Pepper Masala and crushed black pepper for 20 minutes.","Heat oil and saute sliced onions until lightly browned.","Add marinated chicken and cook on medium-high heat, stirring often.","Cook uncovered until chicken is dry-roasted and well coated, about 15 minutes.","Toss in curry leaves in the last 2 minutes and serve hot."],tip:"Cook uncovered on a wide pan so moisture evaporates quickly — this is what gives the dish its signature dry, roasted texture."},
+  {id:17,name:"Chaat Masala Fruit Bowl Chaat",category:"Street Food Recipes",masala:"Chaat Masala",masalaImg:"assets/image/home/masalas.webp",img:"assets/image/home/chilli-powder.webp",prep:10,cook:0,difficulty:"Easy",spice:"Mild",servings:2,rating:4.4,tags:["recent"],desc:"A refreshing, tangy fruit chaat where Chaat Masala turns ordinary fruit into a street-food favourite in minutes — no cooking required.",ingredients:["2 cups mixed seasonal fruit, chopped","1 tbsp Rangrez Chaat Masala","1 tbsp lemon juice","1 tsp roasted cumin powder","Mint leaves to garnish"],steps:["Chop all fruit into bite-sized pieces and place in a large bowl.","Squeeze fresh lemon juice over the fruit.","Sprinkle Chaat Masala and roasted cumin powder evenly.","Toss gently to coat all pieces without bruising the fruit.","Garnish with mint leaves and serve immediately."],tip:"Toss the fruit just before serving — Chaat Masala draws out moisture over time and can make the fruit soggy if mixed too early."},
+  {id:18,name:"Kitchen King Mixed Vegetable Curry",category:"Vegetarian Recipes",masala:"Kitchen King Masala",masalaImg:"assets/image/home/masalas.webp",img:"assets/image/home/turmeric-powder.webp",prep:15,cook:20,difficulty:"Easy",spice:"Medium",servings:4,rating:4.5,tags:["popular"],desc:"A all-purpose mixed vegetable curry that leans entirely on Kitchen King Masala for its rounded, well-balanced flavour — the everyday vegetarian staple.",ingredients:["2 cups mixed vegetables, chopped","2 tbsp Rangrez Kitchen King Masala","1 onion, chopped","1 tomato, pureed","1 tbsp ginger-garlic paste","3 tbsp oil"],steps:["Heat oil and saute chopped onions until soft.","Add ginger-garlic paste and tomato puree, cook until oil separates.","Stir in Kitchen King Masala and cook for a minute.","Add mixed vegetables and a splash of water, cover and cook for 15 minutes.","Adjust salt and serve with roti or rice."],tip:"Cut harder vegetables like carrot and potato smaller than softer ones like beans so everything finishes cooking at the same time."},
+  {id:19,name:"North Indian Curry Masala Gravy",category:"North Indian Recipes",masala:"Curry Masala",masalaImg:"assets/image/home/sambar-masala.webp",img:"assets/image/home/sambar-masala.webp",prep:15,cook:25,difficulty:"Easy",spice:"Medium",servings:4,rating:4.5,tags:["recent"],desc:"A versatile onion-tomato base curry spiced with Curry Masala — the kind of all-purpose gravy that takes well to chicken, paneer or vegetables alike.",ingredients:["2 tbsp Rangrez Curry Masala","2 onions, sliced","2 tomatoes, pureed","1 tbsp ginger-garlic paste","3 tbsp oil","Your choice of protein or vegetables"],steps:["Heat oil and fry sliced onions until golden brown.","Add ginger-garlic paste and cook for 2 minutes.","Stir in tomato puree and cook until the oil separates.","Add Curry Masala and cook for a minute to bloom the spices.","Add your chosen protein or vegetables along with water as needed.","Cover and simmer until fully cooked, then serve hot."],tip:"This base gravy freezes well — make a double batch of the onion-tomato-masala base and freeze it for quick weeknight curries."},
+  {id:20,name:"Special Blend Royal Korma",category:"Special Masala Recipes",masala:"Special Blend Masala",masalaImg:"assets/image/home/masalas.webp",img:"assets/image/home/masalas.webp",prep:25,cook:40,difficulty:"Hard",spice:"Mild",servings:5,rating:4.9,tags:["featured","trending"],desc:"A rich, nutty korma built around our Special Blend Masala — cashews, cream and a whisper of saffron make this our most celebratory recipe.",ingredients:["500g chicken or paneer","4 tbsp Rangrez Special Blend Masala","1/2 cup cashew paste","1/2 cup fried onion paste","1 cup curd","2 tbsp ghee","A pinch of saffron in warm milk"],steps:["Heat ghee and saute the fried onion paste for 2 minutes.","Add Special Blend Masala and cook for a minute until aromatic.","Stir in curd gradually, whisking continuously to prevent splitting.","Add cashew paste and 1/2 cup water, simmer for 10 minutes.","Add chicken or paneer and simmer gently for 20-25 minutes until cooked through.","Finish with saffron milk and a final swirl of cream before serving."],tip:"Keep the flame low once curd is added — kormas are meant to be silky, and high heat is the fastest way to curdle the gravy."}
+];
+
+const RATING_BADGES = {1:"Best Seller",5:"Chef's Choice",6:"Royal Blend",8:"Coastal Favourite",11:"Customer Favourite",20:"Premium Pick"};
+
+/* ── render recipe cards ── */
+function difficultyIcon(level){return level==="Easy"?"fa-seedling":level==="Medium"?"fa-fire":"fa-fire-flame-curved";}
+
+function renderRecipeCards(list){
+  const grid = document.getElementById('recipeCardGrid');
+  const empty = document.getElementById('recipeEmptyState');
+  if(list.length===0){ grid.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  grid.innerHTML = list.map((r,i)=>`
+    <div class="col-lg-4 col-md-6 recipe-card-col" data-aos="fade-up" data-aos-delay="${(i%3)*90}">
+      <div class="rcp-recipe-card">
+        <div class="rcp-recipe-card-img">
+          <img src="${r.img}" alt="${r.name}" loading="lazy">
+          <span class="rcp-recipe-badge ${RATING_BADGES[r.id]?'rcp-gold':''}">${RATING_BADGES[r.id] || r.category}</span>
+          <span class="rcp-recipe-rating"><i class="fa-solid fa-star"></i> ${r.rating}</span>
+        </div>
+        <div class="rcp-recipe-card-body">
+          <h5>${r.name}</h5>
+          <div class="rcp-recipe-meta-row">
+            <span><i class="fa-regular fa-clock"></i> ${r.prep+r.cook} min</span>
+            <span><i class="fa-solid ${difficultyIcon(r.difficulty)}"></i> ${r.difficulty}</span>
+            <span><i class="fa-solid fa-users"></i> Serves ${r.servings}</span>
+            <span><i class="fa-solid fa-pepper-hot"></i> ${r.spice}</span>
+          </div>
+          <p>${r.desc.slice(0,108)}...</p>
+          <div class="rcp-recipe-card-foot">
+            <span class="rcp-recipe-masala-tag"><i class="fa-solid fa-jar me-1"></i>${r.masala}</span>
+            <button class="rcp-btn-view-recipe" onclick="openRecipeModal(${r.id})">View Recipe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  if(window.AOS) AOS.refreshHard();
+}
+
+/* ── tab logic ── */
+let activeTab = 'all';
+
+function applyFilters(){
+  let list = recipes.filter(r=>{
+    if(activeTab !== 'all' && !r.tags.includes(activeTab)) return false;
+    return true;
+  });
+  renderRecipeCards(list);
+}
+
+function filterByCategory(catName){
+  // Reset tabs and show all recipes in that category
+  activeTab = 'all';
+  document.querySelectorAll('.rcp-recipe-tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.rcp-recipe-tab-btn[data-tab="all"]').classList.add('active');
+  const list = recipes.filter(r => r.category === catName);
+  renderRecipeCards(list);
+  document.getElementById('recipeGrid').scrollIntoView({behavior:'smooth'});
+}
+
+document.querySelectorAll('.rcp-recipe-tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.rcp-recipe-tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activeTab = btn.dataset.tab;
+    applyFilters();
+  });
+});
+
+renderRecipeCards(recipes);
+
+/* ── recipe modal ── */
+function openRecipeModal(id){
+  const r = recipes.find(x=>x.id===id);
+  if(!r) return;
+  const modal = document.getElementById('recipeModal');
+  modal.innerHTML = `
+    <button class="rcp-recipe-modal-close" onclick="closeRecipeModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="rcp-recipe-modal-hero">
+      <img src="${r.img}" alt="${r.name}">
+      <h3>${r.name}</h3>
+    </div>
+    <div class="rcp-recipe-modal-body">
+      <div class="rcp-recipe-modal-meta">
+        <div class="rcp-rmm-item"><i class="fa-regular fa-clock"></i><strong>${r.prep} min</strong><span>Prep Time</span></div>
+        <div class="rcp-rmm-item"><i class="fa-solid fa-fire"></i><strong>${r.cook} min</strong><span>Cook Time</span></div>
+        <div class="rcp-rmm-item"><i class="fa-solid fa-chart-simple"></i><strong>${r.difficulty}</strong><span>Difficulty</span></div>
+        <div class="rcp-rmm-item"><i class="fa-solid fa-users"></i><strong>${r.servings}</strong><span>Servings</span></div>
+        <div class="rcp-rmm-item"><i class="fa-solid fa-pepper-hot"></i><strong>${r.spice}</strong><span>Spice Level</span></div>
+        <div class="rcp-rmm-item"><i class="fa-solid fa-star"></i><strong>${r.rating}</strong><span>Rating</span></div>
+      </div>
+      <p style="text-align:justify;color:var(--text-soft);margin-bottom:26px;">${r.desc}</p>
+      <h6><i class="fa-solid fa-list-check me-2"></i>Ingredients</h6>
+      <ul>${r.ingredients.map(i=>`<li>${i}</li>`).join('')}</ul>
+      <h6><i class="fa-solid fa-utensils me-2"></i>Cooking Instructions</h6>
+      <ol>${r.steps.map(s=>`<li>${s}</li>`).join('')}</ol>
+      <div class="rcp-recipe-tip-box"><i class="fa-solid fa-lightbulb"></i><strong>Chef's Tip:</strong> ${r.tip}</div>
+      <h6><i class="fa-solid fa-jar me-2"></i>Recommended Masala</h6>
+      <div class="rcp-recipe-modal-masala">
+        <img src="${r.masalaImg}" alt="${r.masala}">
+        <div><strong>${r.masala}</strong><span>Used in this recipe — available in our Products section</span></div>
+      </div>
+    </div>
+  `;
+  document.getElementById('recipeModalOverlay').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeRecipeModal(){
+  document.getElementById('recipeModalOverlay').classList.remove('show');
+  document.body.style.overflow='';
+}
+document.getElementById('recipeModalOverlay').addEventListener('click', e=>{
+  if(e.target.id==='recipeModalOverlay') closeRecipeModal();
+});
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeRecipeModal(); });
+
+/* ═══════════════════════════════════════════════════════
+   HOW TO USE OUR MASALA
+   ═══════════════════════════════════════════════════════ */
+const howtoData = [
+  {name:"Chicken Masala", icon:"fa-drumstick-bite", qty:"2-3 tbsp per 500g", stage:"Mid-cooking, after tomato base", dishes:"Curries, fries, biryani", flavor:"Warm, balanced, mildly tangy"},
+  {name:"Mutton Masala", icon:"fa-bone", qty:"3-4 tbsp per 500g", stage:"After searing the meat", dishes:"Rogan josh, keema, slow curries", flavor:"Deep, earthy, peppery"},
+  {name:"Fish Masala", icon:"fa-fish", qty:"2-3 tbsp per 500g", stage:"Into the gravy, before adding fish", dishes:"Coastal curries, fish fry", flavor:"Tangy, coconut-friendly, light heat"},
+  {name:"Biryani Masala", icon:"fa-bowl-rice", qty:"3-4 tbsp per 2.5 cups rice", stage:"Mixed into meat marinade & layering", dishes:"Biryani, pulao, layered rice", flavor:"Fragrant, whole-spice forward"},
+  {name:"Garam Masala", icon:"fa-star", qty:"1/2-1 tsp, finishing touch", stage:"Right at the end of cooking", dishes:"Almost any North Indian dish", flavor:"Warm, aromatic, slightly sweet"},
+  {name:"Chaat Masala", icon:"fa-bolt", qty:"1/2-1 tsp per serving", stage:"Off heat, just before serving", dishes:"Chaat, fruit, fried snacks", flavor:"Tangy, salty, instantly punchy"}
+];
+document.getElementById('howtoGrid').innerHTML = howtoData.map((h,i)=>`
+  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="${(i%3)*90}">
+    <div class="rcp-howto-card">
+      <div class="rcp-howto-icon"><i class="fa-solid ${h.icon}"></i></div>
+      <h6>${h.name}</h6>
+      <div class="rcp-howto-row"><span>Quantity</span><b>${h.qty}</b></div>
+      <div class="rcp-howto-row"><span>Add At</span><b>${h.stage}</b></div>
+      <div class="rcp-howto-row"><span>Best For</span><b>${h.dishes}</b></div>
+      <div class="rcp-howto-row"><span>Flavour</span><b>${h.flavor}</b></div>
+    </div>
+  </div>
+`).join('');
+
+/* ═══════════════════════════════════════════════════════
+   COOKING TIPS & TRICKS
+   ═══════════════════════════════════════════════════════ */
+const tipsData = [
+  {icon:"fa-fire-flame-curved", title:"Bloom the Masala", text:"Always cook your masala in hot oil for 30-60 seconds before adding the main ingredient — this is what unlocks its full aroma."},
+  {icon:"fa-box-archive", title:"Store It Right", text:"Keep masala tins away from steam and direct sunlight, and always use a dry spoon to preserve flavour and shelf life."},
+  {icon:"fa-droplet", title:"Balance With Acid", text:"A splash of lemon, curd or tomato right at the end helps lift heavy spice blends and round out the final flavour."},
+  {icon:"fa-clock", title:"Add at the Right Stage", text:"Whole-spice blends like Biryani Masala go in early; finishing blends like Chaat Masala go in last — timing changes everything."},
+  {icon:"fa-wind", title:"Don't Over-Toast", text:"Letting a masala sit too long in hot oil can turn bitter — keep an eye and add liquid as soon as the aroma peaks."},
+  {icon:"fa-scale-balanced", title:"Taste As You Go", text:"Masala blends vary by batch freshness — always taste and adjust quantity rather than following measurements blindly."}
+];
+document.getElementById('tipsGrid').innerHTML = tipsData.map((t,i)=>`
+  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="${(i%3)*90}">
+    <div class="rcp-tip-card">
+      <div class="rcp-tip-icon"><i class="fa-solid ${t.icon}"></i></div>
+      <h6>${t.title}</h6>
+      <p>${t.text}</p>
+    </div>
+  </div>
+`).join('');
+
+/* ═══════════════════════════════════════════════════════
+   CHEF'S RECOMMENDATIONS
+   ═══════════════════════════════════════════════════════ */
+const chefData = [
+  {name:"Royal Mutton Biryani", masala:"Biryani Masala", img:"assets/image/home/garam-masala.webp", tag:"Signature Dish"},
+  {name:"Hyderabadi Chicken Curry", masala:"Chicken Masala", img:"assets/image/home/chicken-masala.webp", tag:"Chef's Pick"},
+  {name:"Goan Coconut Fish Curry", masala:"Fish Masala", img:"assets/image/home/fish-masala.webp", tag:"Coastal Special"},
+  {name:"Special Blend Royal Korma", masala:"Special Blend Masala", img:"assets/image/home/masalas.webp", tag:"Festive Favourite"}
+];
+document.getElementById('chefGrid').innerHTML = chefData.map((c,i)=>`
+  <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="${(i%4)*80}">
+    <div class="rcp-chef-card">
+      <div class="rcp-chef-card-img"><img src="${c.img}" alt="${c.name}" loading="lazy"></div>
+      <div class="rcp-chef-card-body">
+        <span>${c.tag}</span>
+        <h6>${c.name}</h6>
+        <p>Made with ${c.masala}</p>
+      </div>
+    </div>
+  </div>
+`).join('');
+
+/* ═══════════════════════════════════════════════════════
+   VIDEO SHOWCASE
+   ═══════════════════════════════════════════════════════ */
+const videoData = [
+  {title:"Hyderabadi Chicken Masala — Full Recipe", duration:"8:24", img:"assets/image/home/chicken-masala.webp"},
+  {title:"Mutton Biryani, Step by Step", duration:"12:10", img:"assets/image/home/garam-masala.webp"},
+  {title:"Goan Fish Curry in 20 Minutes", duration:"6:45", img:"assets/image/home/fish-masala.webp"},
+  {title:"How We Use Our Masalas", duration:"4:50", img:"assets/image/home/masalas.webp"}
+];
+document.getElementById('videoGrid').innerHTML = videoData.map((v,i)=>`
+  <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="${(i%4)*80}">
+    <div class="rcp-video-card">
+      <div class="rcp-video-thumb" onclick="showToast('Video playback coming soon!')">
+        <img src="${v.img}" alt="${v.title}" loading="lazy">
+        <div class="rcp-video-play-btn"><i class="fa-solid fa-play"></i></div>
+      </div>
+      <div class="rcp-video-card-body">
+        <h6>${v.title}</h6>
+        <span><i class="fa-regular fa-clock me-1"></i>${v.duration}</span>
+      </div>
+    </div>
+  </div>
+`).join('');
+
+/* ═══════════════════════════════════════════════════════
+   FAQ ACCORDION
+   ═══════════════════════════════════════════════════════ */
+const faqData = [
+  {q:"How much masala should I use per recipe?", a:"As a general rule, use 2-3 tablespoons of our masala blends per 500g of the main ingredient, adjusting to your personal spice preference. Stronger blends like Mutton Masala and Biryani Masala can be used slightly more generously, while finishing blends like Chaat Masala should be used sparingly since they're meant to season rather than cook."},
+  {q:"Can I use Chicken Masala for vegetarian dishes?", a:"Yes — while our blends are named after the dish they were originally created for, most of them work beautifully across proteins and vegetables. Chicken Masala, for instance, adds a warm balanced flavour to vegetable curries and paneer dishes too."},
+  {q:"How do I adjust the spice level of a recipe?", a:"Start with the quantity suggested in the recipe and taste as you cook. To reduce heat, balance with a little extra curd, cream or tomato. To increase it, add Kashmiri chilli powder rather than more masala, since the masala blend carries other flavours beyond heat."},
+  {q:"How should I store opened masala tins?", a:"Store opened tins in a cool, dry place away from direct sunlight and steam, and always use a dry spoon. This keeps the spices from clumping or losing their aroma and extends shelf life significantly."},
+  {q:"What's the difference between Garam Masala and Kitchen King Masala?", a:"Garam Masala is a warm, aromatic finishing blend best added at the very end of cooking, while Kitchen King Masala is a more rounded, all-purpose blend designed to be cooked into the dish from an earlier stage. Both are versatile, but they play different roles in a recipe."},
+  {q:"Are these recipes suitable for beginners?", a:"Most of our recipes are written for home cooks of any experience level, with clear step-by-step instructions and chef's tips to help avoid common mistakes. Recipes marked 'Hard' involve more steps or longer cook times, but none require professional technique."}
+];
+document.getElementById('faqAccordion').innerHTML = faqData.map((f,i)=>`
+  <div class="rcp-faq-item" data-aos="fade-up" data-aos-delay="${(i%6)*60}">
+    <button class="rcp-faq-q" onclick="toggleFaq(this)">${f.q} <i class="fa-solid fa-plus"></i></button>
+    <div class="rcp-faq-a"><div class="rcp-faq-a-inner">${f.a}</div></div>
+  </div>
+`).join('');
+function toggleFaq(btn){
+  const item = btn.closest('.rcp-faq-item');
+  const ans = item.querySelector('.rcp-faq-a');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.rcp-faq-item.open').forEach(el=>{
+    el.classList.remove('open');
+    el.querySelector('.rcp-faq-a').style.maxHeight = null;
+  });
+  if(!isOpen){
+    item.classList.add('open');
+    ans.style.maxHeight = ans.scrollHeight + 'px';
+  }
+}
+</script>
+</body>
+</html>

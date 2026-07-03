@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | Vinay Spices — Heritage Spices Since 1962</title>
+<meta name="description" content="Get in touch with Rangrez Masale. Questions about our premium spice blends, bulk orders, or wholesale partnerships — we'd love to hear from you.">
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+<style>
+
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- PRELOADER -->
+<!-- <div id="preloader">
+  <div class="seal-spin">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2" stroke-dasharray="6 6"/>
+      <text x="50" y="57" text-anchor="middle" font-family="Playfair Display,serif" font-size="24" fill="#fff" font-weight="800">R</text>
+    </svg>
+  </div>
+</div> -->
+
+<!-- TOAST -->
+<div class="toast-luxe" id="toastLuxe"><i class="fa-solid fa-circle-check"></i><span id="toastMsg">Message sent!</span></div>
+
+<!-- CROSS-SECTION FLYING PACKET -->
+<div id="crossSectionPacket">
+  <div class="csp-inner">
+    <div class="csp-stripe"><span class="csp-brand-text">Vinay Spices</span></div>
+    <div class="csp-body">
+      <div class="csp-r">R</div>
+      <div class="csp-tag">Est. 1962</div>
+    </div>
+    <div class="csp-bottom"><span class="csp-weight">100g · NATURAL</span></div>
+  </div>
+</div>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay-bg" id="cartOverlay"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-head">
+    <h5 class="mb-0" style="font-family:'Playfair Display',serif;"><i class="fa-solid fa-bag-shopping me-2"></i>Your Cart</h5>
+    <button class="btn-close btn-close-white" id="closeCart" aria-label="Close cart"></button>
+  </div>
+  <div class="cart-drawer-body" id="cartItemsContainer">
+    <p class="text-center mt-5" style="color:var(--text-soft);">Your cart is empty. Time to spice things up!</p>
+  </div>
+  <div class="cart-drawer-foot">
+    <div class="d-flex justify-content-between mb-3">
+      <span style="font-weight:600;">Subtotal</span>
+      <span id="cartSubtotal" style="font-weight:700;color:var(--crimson);">&#8377;0</span>
+    </div>
+    <button class="btn-crimson w-100" id="checkoutBtn">Proceed to Checkout <i class="fa-solid fa-arrow-right ms-1"></i></button>
+  </div>
+</div>
+
+<!-- WISHLIST DRAWER -->
+<div class="wishlist-drawer" id="wishlistDrawer">
+  <div class="wishlist-drawer-head">
+    <h5 class="mb-0" style="font-family:'Playfair Display',serif;color:#fff;"><i class="fa-solid fa-heart me-2"></i>My Wishlist</h5>
+    <button class="btn-close btn-close-white" id="closeWishlist"></button>
+  </div>
+  <div class="wishlist-drawer-body" id="wishlistItemsContainer">
+    <p class="text-center mt-5 px-4" style="color:var(--text-soft);">No favourites yet — tap the heart on any product.</p>
+  </div>
+  <div class="wishlist-drawer-foot">
+    <button class="btn-crimson w-100" id="moveAllToCart">Move All to Cart <i class="fa-solid fa-cart-plus ms-1"></i></button>
+  </div>
+</div>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-wrap">
+    <input type="text" class="search-input-main" id="searchInputMain" placeholder="Search masalas, spices..." autocomplete="off">
+    <button class="search-close-btn" id="searchCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    <div class="search-results" id="searchResultsList"></div>
+    <p class="search-hint">Popular: Chicken Masala &middot; Garam Masala &middot; Turmeric Powder</p>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="auth-modal-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <div class="auth-modal-head">
+      <div class="brand-emblem mx-auto mb-3" style="width:52px;height:52px;font-size:1.4rem;">R</div>
+      <h4>Welcome Back</h4>
+      <p>Login or create your Vinay account</p>
+      <button class="auth-close" id="authClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="auth-modal-body">
+      <div class="auth-tabs">
+        <div class="auth-tab active" data-tab="login">Login</div>
+        <div class="auth-tab" data-tab="register">Register</div>
+      </div>
+      <div class="auth-form active" id="loginForm">
+        <label class="auth-label">Email Address</label>
+        <input type="email" class="auth-input" placeholder="you@example.com">
+        <label class="auth-label">Password</label>
+        <input type="password" class="auth-input" placeholder="••••••••">
+        <button class="btn-crimson w-100" onclick="handleLogin()">Login to Account</button>
+        <div class="auth-divider">or</div>
+        <button class="btn-white-outline w-100" style="color:var(--charcoal);border-color:rgba(139,0,0,.2);font-size:.82rem;padding:12px;"><i class="fa-brands fa-google me-2" style="color:#ea4335;"></i>Continue with Google</button>
+      </div>
+      <div class="auth-form" id="registerForm">
+        <label class="auth-label">Full Name</label>
+        <input type="text" class="auth-input" placeholder="Priya Sharma">
+        <label class="auth-label">Mobile Number</label>
+        <input type="tel" class="auth-input" placeholder="+91 98765 43210">
+        <label class="auth-label">Email Address</label>
+        <input type="email" class="auth-input" placeholder="you@example.com">
+        <label class="auth-label">Password</label>
+        <input type="password" class="auth-input" placeholder="Min 8 characters">
+        <button class="btn-crimson w-100" onclick="handleRegister()">Create Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="header"></div>
+
+
+<main id="main">
+
+<!-- ══════════════════════════════════════════════
+     HERO — Full-width background image
+══════════════════════════════════════════════ -->
+<section class="contact-hero">
+  <div class="container px-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 hero-inner">
+
+        <div class="ch-eyebrow-pill anim-1">
+          <i class="fa-solid fa-envelope-open-text"></i>
+          We'd Love To Hear From You
+        </div>
+
+        <h1 class="ch-hero-title anim-2">
+          Contact <em>Us</em>
+        </h1>
+
+        <p class="ch-hero-subtitle anim-3">
+          Questions about our spice blends, bulk orders, or wholesale partnerships?<br>
+          Our heritage team is here to help — every enquiry answered within 24 hours.
+        </p>
+
+        <div class="ch-cta-row anim-4">
+          <a href="https://wa.me/916369961587" class="btn-white" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp me-2"></i>WhatsApp Us
+          </a>
+          <a href="mailto:vinayspices@gmail.com" class="btn-white-outline">
+            <i class="fa-solid fa-envelope me-2"></i>Send Email
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     CONTACT INFO CARDS
+══════════════════════════════════════════════ -->
+<section class="ct-info-section" id="contact-info">
+  <div class="container px-4">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <div class="eyebrow justify-content-center">Find Us</div>
+      <h2 class="section-title">Ways To <em>Reach Us</em></h2>
+    </div>
+    <div class="row g-4 justify-content-center">
+
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="0">
+        <div class="ct-info-card">
+          <div class="ct-info-icon-wrap">
+            <div class="ct-info-icon"><i class="fa-solid fa-phone"></i></div>
+            <div class="ct-info-icon-ring"></div>
+          </div>
+          <h5 class="ct-info-title">Call Us</h5>
+          <p class="ct-info-desc">Mon – Sat, 9 am to 7 pm</p>
+          <a href="tel:+916369961587" class="ct-info-link">6369961587</a>
+          <!-- <a href="tel:+919876543211" class="ct-info-link">+91 98765 43211</a> -->
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="80">
+        <div class="ct-info-card ct-info-card--highlight">
+          <div class="ct-info-icon-wrap">
+            <div class="ct-info-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div class="ct-info-icon-ring"></div>
+          </div>
+          <h5 class="ct-info-title">Email Us</h5>
+          <p class="ct-info-desc">We reply within 24 hours</p>
+          <a href="mailto:vinayspices@gmail.com" class="ct-info-link">vinayspices@gmail.com</a>
+          <!-- <a href="mailto:orders@rangrezmasale.in" class="ct-info-link">orders@rangrezmasale.in</a> -->
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="160">
+        <div class="ct-info-card">
+          <div class="ct-info-icon-wrap">
+            <div class="ct-info-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="ct-info-icon-ring"></div>
+          </div>
+          <h5 class="ct-info-title">Visit Us</h5>
+          <p class="ct-info-desc">Our heritage spice house</p>
+          <span class="ct-info-link ct-info-addr">2/907 A  Porkala nagar thirumangalam<br> Madurai 625706</span>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="240">
+        <div class="ct-info-card">
+          <div class="ct-info-icon-wrap">
+            <div class="ct-info-icon"><i class="fa-solid fa-clock"></i></div>
+            <div class="ct-info-icon-ring"></div>
+          </div>
+          <h5 class="ct-info-title">Working Hours</h5>
+          <p class="ct-info-desc">Our store timings</p>
+          <span class="ct-info-link">Mon – Sat: 9am – 7pm</span>
+          <span class="ct-info-link">Sunday: 10am – 4pm</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+
+<!-- ══════════════════════════════════════════════
+     PREMIUM RED FORM CARD + SIDE PANEL
+══════════════════════════════════════════════ -->
+<section class="ct-form-section" id="contact-form">
+  <div class="container px-4">
+
+    <div class="text-center mb-5" data-aos="fade-up">
+      <div class="eyebrow justify-content-center">Get In Touch</div>
+      <h2 class="section-title">Send Us A <em>Message</em></h2>
+      <p style="max-width:500px;margin:0 auto;text-align:center;">Whether you're a home cook or a restaurant owner looking for bulk supply — we're ready to help.</p>
+    </div>
+
+    <div class="row g-4 align-items-start">
+
+      <!-- LEFT: Premium Red Form Card -->
+      <div class="col-lg-7" data-aos="fade-right" data-aos-delay="50">
+        <div class="ct-form-card">
+          <div class="ct-form-card-topbar"></div>
+
+          <div class="ct-card-eyebrow">
+            <i class="fa-solid fa-star"></i>
+            Heritage Spices Since 1962
+          </div>
+          <h3 class="ct-card-title">We're Here To <em>Help</em></h3>
+          <p class="ct-card-subtitle">Fill in the form below and our team will get back to you within one business day.</p>
+
+          <form id="contactForm" novalidate>
+
+            <!-- Row 1: Name + Email -->
+            <div class="row g-3 mb-3">
+              <div class="col-sm-6">
+                <div class="ct-field-wrap">
+                  <label class="ct-label" for="ctName">Full Name <span class="ct-req">*</span></label>
+                  <div class="ct-input-group">
+                    <span class="ct-input-icon"><i class="fa-regular fa-user"></i></span>
+                    <input type="text" id="ctName" class="ct-input" placeholder="Arjun Sharma" required>
+                  </div>
+                  <div class="ct-error-msg" id="ctNameErr">Please enter your name.</div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="ct-field-wrap">
+                  <label class="ct-label" for="ctEmail">Email Address <span class="ct-req">*</span></label>
+                  <div class="ct-input-group">
+                    <span class="ct-input-icon"><i class="fa-regular fa-envelope"></i></span>
+                    <input type="email" id="ctEmail" class="ct-input" placeholder="arjun@email.com" required>
+                  </div>
+                  <div class="ct-error-msg" id="ctEmailErr">Please enter a valid email.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 2: Phone + Subject -->
+            <div class="row g-3 mb-3">
+              <div class="col-sm-6">
+                <div class="ct-field-wrap">
+                  <label class="ct-label" for="ctPhone">Phone Number</label>
+                  <div class="ct-input-group">
+                    <span class="ct-input-icon"><i class="fa-solid fa-phone"></i></span>
+                    <input type="tel" id="ctPhone" class="ct-input" placeholder="+91 98765 00000">
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="ct-field-wrap">
+                  <label class="ct-label" for="ctSubject">Subject <span class="ct-req">*</span></label>
+                  <div class="ct-input-group ct-select-wrap">
+                    <span class="ct-input-icon"><i class="fa-solid fa-tag"></i></span>
+                    <select id="ctSubject" class="ct-input ct-select" required>
+                      <option value="" disabled selected>Choose a topic…</option>
+                      <option value="order">Order Enquiry</option>
+                      <option value="wholesale">Wholesale / Bulk Order</option>
+                      <option value="product">Product Question</option>
+                      <option value="feedback">Feedback &amp; Reviews</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <span class="ct-select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                  </div>
+                  <div class="ct-error-msg" id="ctSubjectErr">Please select a subject.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 3: Message -->
+            <div class="mb-4">
+              <div class="ct-field-wrap">
+                <label class="ct-label" for="ctMessage">Your Message <span class="ct-req">*</span></label>
+                <div class="ct-textarea-group">
+                  <textarea id="ctMessage" class="ct-input ct-textarea" rows="5" placeholder="Tell us how we can help…" required></textarea>
+                  <span class="ct-char-count" id="ctCharCount">0 / 500</span>
+                </div>
+                <div class="ct-error-msg" id="ctMessageErr">Please enter your message.</div>
+              </div>
+            </div>
+
+            <!-- <hr class="ct-card-divider"> -->
+
+            <!-- Submit -->
+            <div class="d-flex align-items-center  flex-wrap justify-content-center">
+              <button type="submit" class="ct-submit-btn" id="ctSubmitBtn">
+                <span class="ct-btn-text">Send Message <i class="fa-solid fa-paper-plane ms-2"></i></span>
+                <span class="ct-btn-loading d-none"><i class="fa-solid fa-circle-notch fa-spin me-2"></i>Sending…</span>
+              </button>
+              <!-- <p class="ct-form-note mb-0"><i class="fa-solid fa-shield-halved me-1"></i>Your details are safe with us.</p> -->
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+      <!-- RIGHT: Side panel — same red card language -->
+      <div class="col-lg-5 ct-side-panel" data-aos="fade-left" data-aos-delay="100">
+
+        <!-- Quick contact info block -->
+        
+
+        <!-- WhatsApp Strip -->
+        <a href="https://wa.me/6369961587" class="ct-wa-strip text-decoration-none" target="_blank" rel="noopener">
+          <div class="ct-wa-strip-icon"><i class="fa-brands fa-whatsapp"></i></div>
+          <div>
+            <h6>Prefer WhatsApp?</h6>
+            <p>Most orders confirmed within minutes.</p>
+            <span class="ct-wa-strip-btn">Start Chat <i class="fa-solid fa-arrow-right ms-1"></i></span>
+          </div>
+        </a>
+
+        <!-- Help reasons -->
+        <!-- Why contact card -->
+        <div class="ct-reasons-card">
+          <h5 class="ct-reasons-title">How We Can Help</h5>
+          <ul class="ct-reason-list">
+            <li class="ct-reason-item">
+              <div class="ct-reason-icon"><i class="fa-solid fa-box-open"></i></div>
+              <div>
+                <strong>Track your order</strong>
+                <span>Get real-time updates on dispatch and delivery.</span>
+              </div>
+            </li>
+            <li class="ct-reason-item">
+              <div class="ct-reason-icon"><i class="fa-solid fa-store"></i></div>
+              <div>
+                <strong>Wholesale enquiries</strong>
+                <span>Custom pricing for restaurants and retailers.</span>
+              </div>
+            </li>
+            <li class="ct-reason-item">
+              <div class="ct-reason-icon"><i class="fa-solid fa-rotate-left"></i></div>
+              <div>
+                <strong>Returns & replacements</strong>
+                <span>Hassle-free, no-questions-asked policy.</span>
+              </div>
+            </li>
+            <li class="ct-reason-item">
+              <div class="ct-reason-icon"><i class="fa-solid fa-pepper-hot"></i></div>
+              <div>
+                <strong>Product guidance</strong>
+                <span>Spice pairing, recipes, and blend suggestions.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     MAP SECTION
+══════════════════════════════════════════════ -->
+<section class="ct-map-section">
+  <div class="container px-4 mb-5" data-aos="fade-up">
+    <div class="text-center mb-4">
+      <div class="eyebrow justify-content-center">Our Location</div>
+      <h2 class="section-title">Come <em>Visit Us</em></h2>
+      <p style="max-width:480px;margin:0 auto;text-align:center;">We welcome walk-in visitors at our spice house. Come taste our heritage blends in person.</p>
+    </div>
+  </div>
+  <div class="container px-4">
+    <div class="ct-map-wrap" data-aos="fade-up" data-aos-delay="100">
+      <div class="ct-map-overlay-card">
+        <div class="ct-map-card-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <h6>Rangrez Masale</h6>
+        <p>2/907 A Porkala Nagar <br>Thirumangalam Madurai 625706</p>
+        <a href="https://maps.app.goo.gl/qAEXqtF8n6Eg2Cwy9" target="_blank" rel="noopener" class="btn-crimson" style="font-size:.78rem;padding:10px 22px;display:inline-block;">
+          Get Directions <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+     <iframe
+  src="https://www.google.com/maps?q=2/907,Porkala+Nagar,Thirumangalam,Madurai,625706&output=embed"
+  width="100%"
+  height="100%"
+  style="border:0;"
+  allowfullscreen=""
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     SOCIAL & NEWSLETTER
+══════════════════════════════════════════════ -->
+<section class="newsletter-section" style="padding:80px 0;">
+  <div class="container px-4 text-center">
+    <div class="eyebrow justify-content-center" style="color:rgba(255,255,255,.55);">Stay Connected</div>
+    <h2 style="color:#fff;font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);">Recipes, Offers &amp; New Blends —<br><em>Straight To You.</em></h2>
+    <div class="ct-social-row mt-4 mb-5">
+      <a href="#" class="ct-social-pill" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
+      <a href="#" class="ct-social-pill" aria-label="Instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
+      <a href="#" class="ct-social-pill" aria-label="YouTube"><i class="fa-brands fa-youtube"></i> YouTube</a>
+      <a href="#" class="ct-social-pill" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i> Pinterest</a>
+    </div>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" id="nsEmail" placeholder="Enter your email address" required>
+      <button type="submit" class="btn-white">Subscribe</button>
+    </form>
+    <p class="ns-success" id="nsSuccess"><i class="fa-solid fa-circle-check me-1"></i> You're subscribed! Welcome to the family.</p>
+  </div>
+</section>
+
+</main>
+
+<div id="footer"></div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+
+<script>
+// ── CART & WISHLIST STATE (shared via localStorage)
+let cart     = JSON.parse(localStorage.getItem('rangrez_cart_v2')    || '[]');
+let wishlist = JSON.parse(localStorage.getItem('rangrez_wishlist_v1') || '[]');
+
+// Product catalogue (same keys as index.html)
+const products = [
+  {id:1,name:"Royal Garam Masala",       cat:"Garam Masala",    img:"assets/image/home/garam-masala.webp",    price:189,old:240,rating:4.8,reviews:312,stock:"In Stock"},
+  {id:2,name:"Hyderabadi Chicken Masala", cat:"Chicken Masala",  img:"assets/image/home/chicken-masala.webp", price:165,old:200,rating:4.7,reviews:248,stock:"In Stock"},
+  {id:3,name:"Kashmiri Mutton Masala",   cat:"Mutton Masala",   img:"assets/image/home/mutton-masala.webp",  price:210,old:260,rating:4.9,reviews:189,stock:"Only 6 left"},
+  {id:4,name:"Coastal Fish Masala",      cat:"Fish Masala",     img:"assets/image/home/fish-masala.webp",    price:155,old:190,rating:4.6,reviews:144,stock:"In Stock"},
+  {id:5,name:"Tangy Sambar Powder",      cat:"Sambar Powder",   img:"assets/image/home/sambar-masala.webp",  price:120,old:150,rating:4.7,reviews:201,stock:"In Stock"},
+  {id:6,name:"Pure Turmeric Powder",     cat:"Turmeric Powder", img:"assets/image/home/turmeric-powder.webp",price:95, old:120,rating:4.9,reviews:410,stock:"In Stock"},
+  {id:7,name:"Fiery Chilli Powder",      cat:"Chilli Powder",   img:"assets/image/home/chilli-powder.webp",  price:110,old:140,rating:4.5,reviews:167,stock:"Only 4 left"},
+  {id:8,name:"Classic Rasam Powder",     cat:"Rasam Powder",    img:"assets/image/home/rasam-powder.webp",   price:105,old:130,rating:4.6,reviews:132,stock:"In Stock"},
+];
+
+// ── SAVE HELPERS
+function saveCart()     { localStorage.setItem('rangrez_cart_v2',    JSON.stringify(cart));     renderCart(); }
+function saveWishlist() { localStorage.setItem('rangrez_wishlist_v1', JSON.stringify(wishlist)); renderWishlist(); }
+
+// ── RENDER CART
+function renderCart() {
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  const cartCountEl = document.getElementById('cartCount');
+  if (cartCountEl) cartCountEl.textContent = count;
+  const container  = document.getElementById('cartItemsContainer');
+  const subtotalEl = document.getElementById('cartSubtotal');
+  if (!container) return;
+  if (!cart.length) {
+    container.innerHTML = '<p class="text-center mt-5" style="color:var(--text-soft);">Your cart is empty. Time to spice things up!</p>';
+    if (subtotalEl) subtotalEl.textContent = '&#8377;0';
+    return;
+  }
+  let sub = 0;
+  container.innerHTML = cart.map((item, idx) => {
+    sub += item.price * item.qty;
+    return `<div class="cart-item">
+      <img src="${item.img}" alt="${item.name}">
+      <div class="cart-item-info">
+        <h6>${item.name}</h6>
+        <small>&#8377;${item.price} &times; ${item.qty} = &#8377;${item.price * item.qty}</small>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+          <button onclick="changeCartQty(${idx},-1)" style="width:24px;height:24px;border-radius:50%;border:1px solid rgba(139,0,0,.2);background:transparent;cursor:pointer;color:var(--crimson);">&minus;</button>
+          <span style="font-size:.82rem;font-weight:600;">${item.qty}</span>
+          <button onclick="changeCartQty(${idx},1)"  style="width:24px;height:24px;border-radius:50%;border:1px solid rgba(139,0,0,.2);background:transparent;cursor:pointer;color:var(--crimson);">+</button>
+        </div>
+      </div>
+      <i class="fa-solid fa-trash remove-item" onclick="removeFromCart(${idx})"></i>
+    </div>`;
+  }).join('');
+  if (subtotalEl) subtotalEl.textContent = '&#8377;' + sub;
+}
+
+// ── RENDER WISHLIST
+function renderWishlist() {
+  const countEl = document.getElementById('wishlistCount');
+  if (countEl) { countEl.textContent = wishlist.length; countEl.style.display = wishlist.length > 0 ? 'flex' : 'none'; }
+  const container = document.getElementById('wishlistItemsContainer');
+  if (!container) return;
+  if (!wishlist.length) {
+    container.innerHTML = '<p class="text-center mt-5 px-4" style="color:var(--text-soft);">No favourites yet &mdash; tap the heart on any product.</p>';
+    return;
+  }
+  container.innerHTML = wishlist.map(id => {
+    const p = products.find(x => x.id === id);
+    if (!p) return '';
+    return `<div class="wishlist-item" style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);">
+      <img src="${p.img}" alt="${p.name}" style="width:56px;height:56px;border-radius:8px;object-fit:cover;">
+      <div style="flex:1;">
+        <h6 style="margin:0;font-size:.88rem;">${p.name}</h6>
+        <span style="color:var(--crimson);font-weight:700;">&#8377;${p.price}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <button onclick="addToCartFromWishlist(${p.id})" style="font-size:.7rem;padding:5px 10px;background:var(--crimson);color:#fff;border:none;border-radius:4px;cursor:pointer;">Add to Cart</button>
+        <button onclick="removeWishlistItem(${p.id})"    style="font-size:.7rem;padding:5px 10px;background:transparent;color:var(--text-soft);border:1px solid rgba(139,0,0,.2);border-radius:4px;cursor:pointer;">Remove</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function changeCartQty(idx, dir) { cart[idx].qty = Math.max(1, cart[idx].qty + dir); saveCart(); }
+function removeFromCart(idx)      { cart.splice(idx, 1); saveCart(); }
+function removeWishlistItem(id)   { wishlist = wishlist.filter(x => x !== id); saveWishlist(); }
+function addToCartFromWishlist(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  const ex = cart.find(i => i.id === id);
+  if (ex) ex.qty += 1; else cart.push({ ...p, qty: 1 });
+  saveCart();
+  showToast(p.name + ' added to cart!');
+}
+
+// ── FLYING PACKET
+const csp = document.getElementById('crossSectionPacket');
+function launchPacket(originEl) {
+  const cartIcon = document.getElementById('cartIconBtn');
+  const bRect = originEl.getBoundingClientRect();
+  const cRect = cartIcon.getBoundingClientRect();
+  csp.style.transition = 'none';
+  csp.style.left = bRect.left + 'px';
+  csp.style.top  = bRect.top  + 'px';
+  csp.style.opacity = '1';
+  csp.style.transform = 'scale(1) rotate(0deg)';
+  requestAnimationFrame(() => {
+    csp.style.transition = 'all 0.9s cubic-bezier(0.18,0.89,0.32,1.28)';
+    csp.style.left = cRect.left + 'px';
+    csp.style.top  = cRect.top  + 'px';
+    csp.style.opacity = '0.15';
+    csp.style.transform = 'scale(0.15) rotate(720deg)';
+  });
+  setTimeout(() => { csp.style.opacity = '0'; csp.style.transition = 'none'; }, 950);
+  setTimeout(() => { cartIcon.style.transition = 'transform .15s'; cartIcon.style.transform = 'scale(1.35)'; }, 880);
+  setTimeout(() => { cartIcon.style.transform = 'scale(1)'; }, 1080);
+}
+
+// ── AUTH HANDLERS
+function handleLogin()    { document.getElementById('authOverlay').classList.remove('open'); document.body.style.overflow = ''; showToast('Welcome back to Rangrez Masale!'); }
+function handleRegister() { document.getElementById('authOverlay').classList.remove('open'); document.body.style.overflow = ''; showToast('Account created! Welcome to the family!'); }
+
+// ── initCaddNav — called after header.html is injected
+function initCaddNav() {
+  // Navbar scroll
+  const nav = document.getElementById('mainNav');
+  if (nav) window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 70));
+
+  const overlay        = document.getElementById('cartOverlay');
+  const cartDrawer     = document.getElementById('cartDrawer');
+  const wishlistDrawer = document.getElementById('wishlistDrawer');
+
+  // Cart open / close
+  document.getElementById('cartIconBtn')?.addEventListener('click', () => {
+    cartDrawer.classList.add('open'); overlay.classList.add('show'); document.body.style.overflow = 'hidden';
+  });
+  document.getElementById('closeCart')?.addEventListener('click', () => {
+    cartDrawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow = '';
+  });
+  overlay?.addEventListener('click', () => {
+    cartDrawer.classList.remove('open'); wishlistDrawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow = '';
+  });
+
+  // Checkout
+  document.getElementById('checkoutBtn')?.addEventListener('click', () => {
+    if (!cart.length) { showToast('Your cart is empty!'); return; }
+    showToast('Redirecting to secure checkout...');
+  });
+
+  // Wishlist open / close
+  document.getElementById('wishlistNavBtn')?.addEventListener('click', () => {
+    wishlistDrawer.classList.add('open'); overlay.classList.add('show'); document.body.style.overflow = 'hidden';
+  });
+  document.getElementById('closeWishlist')?.addEventListener('click', () => {
+    wishlistDrawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow = '';
+  });
+
+  // Move all wishlist to cart
+  document.getElementById('moveAllToCart')?.addEventListener('click', () => {
+    if (!wishlist.length) { showToast('Your wishlist is empty!'); return; }
+    wishlist.forEach(id => {
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+      const ex = cart.find(i => i.id === id);
+      if (ex) ex.qty += 1; else cart.push({ ...p, qty: 1 });
+    });
+    wishlist = [];
+    saveCart(); renderWishlist();
+    showToast('All wishlist items moved to cart!');
+    wishlistDrawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow = '';
+  });
+
+  // Auth / Profile
+  document.getElementById('profileNavBtn')?.addEventListener('click', () => {
+    document.getElementById('authOverlay').classList.add('open'); document.body.style.overflow = 'hidden';
+  });
+  document.getElementById('authClose')?.addEventListener('click', () => {
+    document.getElementById('authOverlay').classList.remove('open'); document.body.style.overflow = '';
+  });
+  document.getElementById('authOverlay')?.addEventListener('click', e => {
+    if (e.target.id === 'authOverlay') { e.target.classList.remove('open'); document.body.style.overflow = ''; }
+  });
+  document.querySelectorAll('.auth-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab + 'Form').classList.add('active');
+    });
+  });
+
+  // Search overlay
+  document.getElementById('searchNavBtn')?.addEventListener('click', () => {
+    document.getElementById('searchOverlay').classList.add('open');
+    setTimeout(() => document.getElementById('searchInputMain')?.focus(), 200);
+  });
+  document.getElementById('searchCloseBtn')?.addEventListener('click', () => {
+    document.getElementById('searchOverlay').classList.remove('open');
+  });
+  document.getElementById('searchInputMain')?.addEventListener('input', function () {
+    const q    = this.value.trim().toLowerCase();
+    const list = document.getElementById('searchResultsList');
+    if (!q) { list.innerHTML = ''; return; }
+    const results = products.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q)).slice(0, 6);
+    if (!results.length) { list.innerHTML = '<p style="color:rgba(255,255,255,.4);font-size:.85rem;margin-top:14px;">No products found.</p>'; return; }
+    list.innerHTML = results.map(p => `
+      <div class="search-result-item" style="display:flex;align-items:center;gap:12px;padding:10px;cursor:pointer;border-radius:8px;transition:background .2s;"
+           onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background='transparent'"
+           onclick="addToCartFromSearch(${p.id},this)">
+        <img src="${p.img}" alt="${p.name}" style="width:44px;height:44px;border-radius:8px;object-fit:cover;">
+        <div style="flex:1;">
+          <h6 style="margin:0;font-size:.88rem;color:#fff;">${p.name}</h6>
+          <span style="font-size:.8rem;color:var(--gold-light);">&#8377;${p.price} <del style="opacity:.5;">&#8377;${p.old}</del></span>
+        </div>
+        <button style="font-size:.7rem;padding:5px 10px;background:var(--crimson);color:#fff;border:none;border-radius:4px;cursor:pointer;">Add</button>
+      </div>`).join('');
+  });
+
+  // ESC closes overlays
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    document.getElementById('searchOverlay')?.classList.remove('open');
+    document.getElementById('authOverlay')?.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+
+  // Initial render to sync badge counts
+  renderCart();
+  renderWishlist();
+}
+
+function addToCartFromSearch(id, el) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  const ex = cart.find(i => i.id === id);
+  if (ex) ex.qty += 1; else cart.push({ ...p, qty: 1 });
+  saveCart();
+  showToast(p.name + ' added to cart!');
+  launchPacket(el);
+}
+
+fetch("./header.html")
+  .then(r => r.text())
+  .then(html => {
+    document.getElementById("header").innerHTML = html;
+    initCaddNav();
+  });
+
+fetch('footer.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('footer').innerHTML = data;
+  });
+</script>
+
+<script>
+// ── AOS
+AOS.init({ duration: 650, once: true, offset: 50 });
+
+// ── TOAST
+function showToast(msg) {
+  const t = document.getElementById('toastLuxe');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── RIPPLE on buttons
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('.btn-white,.btn-crimson,.btn-white-outline,.ct-submit-btn');
+  if (!btn) return;
+  const r = document.createElement('span');
+  r.className = 'ripple-effect';
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height) * 2;
+  r.style.width = r.style.height = size + 'px';
+  r.style.left = (e.clientX - rect.left - size / 2) + 'px';
+  r.style.top  = (e.clientY - rect.top  - size / 2) + 'px';
+  btn.style.position = 'relative';
+  btn.appendChild(r);
+  setTimeout(() => r.remove(), 700);
+});
+
+// ── CHARACTER COUNT
+const msgField  = document.getElementById('ctMessage');
+const charCount = document.getElementById('ctCharCount');
+if (msgField) {
+  msgField.addEventListener('input', () => {
+    const len = msgField.value.length;
+    charCount.textContent = len + ' / 500';
+    charCount.style.color = len > 450 ? 'var(--gold-light)' : 'rgba(255,255,255,.35)';
+    if (len > 500) msgField.value = msgField.value.slice(0, 500);
+  });
+}
+
+// ── CONTACT FORM SUBMIT
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  let valid = true;
+
+  const name    = document.getElementById('ctName');
+  const email   = document.getElementById('ctEmail');
+  const subject = document.getElementById('ctSubject');
+  const message = document.getElementById('ctMessage');
+
+  [name, email, subject, message].forEach(f => f.closest('.ct-field-wrap').classList.remove('ct-error','ct-success'));
+
+  if (!name.value.trim()) {
+    name.closest('.ct-field-wrap').classList.add('ct-error'); valid = false;
+  } else name.closest('.ct-field-wrap').classList.add('ct-success');
+
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(email.value.trim())) {
+    email.closest('.ct-field-wrap').classList.add('ct-error'); valid = false;
+  } else email.closest('.ct-field-wrap').classList.add('ct-success');
+
+  if (!subject.value) {
+    subject.closest('.ct-field-wrap').classList.add('ct-error'); valid = false;
+  } else subject.closest('.ct-field-wrap').classList.add('ct-success');
+
+  if (!message.value.trim() || message.value.trim().length < 10) {
+    message.closest('.ct-field-wrap').classList.add('ct-error');
+    document.getElementById('ctMessageErr').textContent = message.value.trim().length < 10
+      ? 'Message is too short (min 10 chars).'
+      : 'Please enter your message.';
+    valid = false;
+  } else message.closest('.ct-field-wrap').classList.add('ct-success');
+
+  if (!valid) return;
+
+  const btn = document.getElementById('ctSubmitBtn');
+  btn.querySelector('.ct-btn-text').classList.add('d-none');
+  btn.querySelector('.ct-btn-loading').classList.remove('d-none');
+  btn.disabled = true;
+
+  setTimeout(() => {
+    btn.querySelector('.ct-btn-text').classList.remove('d-none');
+    btn.querySelector('.ct-btn-loading').classList.add('d-none');
+    btn.disabled = false;
+    this.reset();
+    charCount.textContent = '0 / 500';
+    [name, email, subject, message].forEach(f => f.closest('.ct-field-wrap').classList.remove('ct-error','ct-success'));
+    showToast('Message sent! We\'ll be in touch soon. 🌶️');
+  }, 1800);
+});
+
+// ── NEWSLETTER
+document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  if (document.getElementById('nsEmail').value) {
+    document.getElementById('nsSuccess').style.display = 'block';
+    this.reset();
+    setTimeout(() => document.getElementById('nsSuccess').style.display = 'none', 4000);
+  }
+});
+</script>
+</body>
+</html>

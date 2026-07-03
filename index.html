@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rangrez Masale | Heritage Spices, Reimagined</title>
+<meta name="description" content="Rangrez Masale — premium, lab-tested Indian spice blends. 100% natural, no preservatives, hand-roasted heritage recipes since 1962.">
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+<style>
+
+</style>
+
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="seal-spin">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2" stroke-dasharray="6 6"/>
+      <text x="50" y="57" text-anchor="middle" font-family="Playfair Display,serif" font-size="24" fill="#fff" font-weight="800">R</text>
+    </svg>
+  </div>
+</div>
+
+<!-- CROSS-SECTION FLYING PACKET -->
+<div id="crossSectionPacket">
+  <div class="csp-inner">
+    <div class="csp-stripe"><span class="csp-brand-text">RANGREZ MASALE</span></div>
+    <div class="csp-body">
+      <div class="csp-r">R</div>
+      <div class="csp-tag">Est. 1962</div>
+    </div>
+    <div class="csp-bottom"><span class="csp-weight">100g · NATURAL</span></div>
+  </div>
+</div>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay-bg" id="cartOverlay"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-head">
+    <h5 class="mb-0" style="font-family:'Playfair Display',serif;"><i class="fa-solid fa-bag-shopping me-2"></i>Your Cart</h5>
+    <button class="btn-close btn-close-white" id="closeCart" aria-label="Close cart"></button>
+  </div>
+  <div class="cart-drawer-body" id="cartItemsContainer">
+    <p class="text-center mt-5" style="color:var(--text-soft);">Your cart is empty. Time to spice things up!</p>
+  </div>
+  <div class="cart-drawer-foot">
+    <div class="d-flex justify-content-between mb-3">
+      <span style="font-weight:600;">Subtotal</span>
+      <span id="cartSubtotal" style="font-weight:700;color:var(--crimson);">₹0</span>
+    </div>
+    <button class="btn-crimson w-100" id="checkoutBtn">Proceed to Checkout <i class="fa-solid fa-arrow-right ms-1"></i></button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-luxe" id="toastLuxe"><i class="fa-solid fa-circle-check"></i><span id="toastMsg">Added to cart!</span></div>
+
+
+
+<!-- WISHLIST DRAWER -->
+<div class="wishlist-drawer" id="wishlistDrawer">
+  <div class="wishlist-drawer-head">
+    <h5 class="mb-0" style="font-family:'Playfair Display',serif;color:#fff;"><i class="fa-solid fa-heart me-2"></i>My Wishlist</h5>
+    <button class="btn-close btn-close-white" id="closeWishlist"></button>
+  </div>
+  <div class="wishlist-drawer-body" id="wishlistItemsContainer">
+    <p class="text-center mt-5 px-4" style="color:var(--text-soft);">No favourites yet — tap the heart on any product.</p>
+  </div>
+  <div class="wishlist-drawer-foot">
+    <button class="btn-crimson w-100" id="moveAllToCart">Move All to Cart <i class="fa-solid fa-cart-plus ms-1"></i></button>
+  </div>
+</div>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-wrap">
+    <input type="text" class="search-input-main" id="searchInputMain" placeholder="Search masalas, spices…" autocomplete="off">
+    <button class="search-close-btn" id="searchCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    <div class="search-results" id="searchResultsList"></div>
+    <p class="search-hint">Popular: Chicken Masala · Garam Masala · Turmeric Powder</p>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="auth-modal-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <div class="auth-modal-head">
+      <div class="brand-emblem mx-auto mb-3" style="width:52px;height:52px;font-size:1.4rem;">R</div>
+      <h4>Welcome Back</h4>
+      <p>Login or create your Rangrez account</p>
+      <button class="auth-close" id="authClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="auth-modal-body">
+      <div class="auth-tabs">
+        <div class="auth-tab active" data-tab="login">Login</div>
+        <div class="auth-tab" data-tab="register">Register</div>
+      </div>
+      <div class="auth-form active" id="loginForm">
+        <label class="auth-label">Email Address</label>
+        <input type="email" class="auth-input" placeholder="you@example.com">
+        <label class="auth-label">Password</label>
+        <input type="password" class="auth-input" placeholder="••••••••">
+        <button class="btn-crimson w-100" onclick="handleLogin()">Login to Account</button>
+        <div class="auth-divider">or</div>
+        <button class="btn-white-outline w-100" style="color:var(--charcoal);border-color:rgba(139,0,0,.2);font-size:.82rem;padding:12px;"><i class="fa-brands fa-google me-2" style="color:#ea4335;"></i>Continue with Google</button>
+      </div>
+      <div class="auth-form" id="registerForm">
+        <label class="auth-label">Full Name</label>
+        <input type="text" class="auth-input" placeholder="Priya Sharma">
+        <label class="auth-label">Mobile Number</label>
+        <input type="tel" class="auth-input" placeholder="+91 98765 43210">
+        <label class="auth-label">Email Address</label>
+        <input type="email" class="auth-input" placeholder="you@example.com">
+        <label class="auth-label">Password</label>
+        <input type="password" class="auth-input" placeholder="Min 8 characters">
+        <button class="btn-crimson w-100" onclick="handleRegister()">Create Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="header"></div>
+
+<main id="main">
+
+<!-- HERO -->
+<div id="bannerSlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4500" data-bs-touch="true">
+    <div class="carousel-inner">
+
+        <div class="carousel-item active">
+            <!-- <img src="assets/image/home/slider-one.png" -->
+             <img src="assets/image/home/slider1.webp"
+                 class="d-block w-100 hero-banner"
+                 alt="Banner 1">
+        </div>
+
+        <div class="carousel-item ">
+            <!-- <img src="assets/image/home/slider-three.png" -->
+               <img src="assets/image/home/slider3.webp"
+                 class="d-block w-100 hero-banner"
+                 alt="Banner 2">
+        </div>
+
+        <div class="carousel-item">
+            <!-- <img src="assets/image/home/slider-two.png" -->
+              <img src="assets/image/home/slider2.webp"
+                 class="d-block w-100 hero-banner"
+                 alt="Banner 3">
+        </div>
+
+    </div>
+
+    <button class="carousel-control-prev" type="button"
+        data-bs-target="#bannerSlider" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+
+    <button class="carousel-control-next" type="button"
+        data-bs-target="#bannerSlider" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+
+    <div class="carousel-indicators hero-carousel-indicators">
+        <button type="button" data-bs-target="#bannerSlider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#bannerSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#bannerSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-track" id="trustTrack">
+    <span class="trust-item"><i class="fa-solid fa-leaf"></i> 100% Natural Ingredients</span>
+    <span class="trust-item"><i class="fa-solid fa-flask-vial"></i> Lab Tested for Purity</span>
+    <span class="trust-item"><i class="fa-solid fa-shield-heart"></i> No Preservatives</span>
+    <span class="trust-item"><i class="fa-solid fa-truck-fast"></i> Free Delivery above ₹499</span>
+    <span class="trust-item"><i class="fa-solid fa-medal"></i> Trusted Since 1962</span>
+    <span class="trust-item"><i class="fa-solid fa-box"></i> Hygienic Sealed Packaging</span>
+    <span class="trust-item"><i class="fa-solid fa-leaf"></i> 100% Natural Ingredients</span>
+    <span class="trust-item"><i class="fa-solid fa-flask-vial"></i> Lab Tested for Purity</span>
+    <span class="trust-item"><i class="fa-solid fa-shield-heart"></i> No Preservatives</span>
+    <span class="trust-item"><i class="fa-solid fa-truck-fast"></i> Free Delivery above ₹499</span>
+    <span class="trust-item"><i class="fa-solid fa-medal"></i> Trusted Since 1962</span>
+    <span class="trust-item"><i class="fa-solid fa-box"></i> Hygienic Sealed Packaging</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="sec-pad about-section" id="about">
+  <div class="container px-4">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5" data-aos="fade-right">
+        <div class="about-img-wrap">
+          <img src="assets/image/home/masalas.webp" class="img-fluid" alt="Spices being hand-blended">
+        </div>
+      </div>
+      <div class="col-lg-7" data-aos="fade-left">
+        <div class="eyebrow">Our Heritage</div>
+        <h2 class="section-title">Premium Indian <em> Masalas Online</em></h2>
+        <p class="mb-3">Discover the authentic taste of India with our premium range of masalas, carefully crafted from the finest quality spices. Each blend is expertly prepared to deliver rich aroma, vibrant flavor, and consistent quality in every dish. Whether you're cooking traditional Indian recipes or experimenting with new cuisines, our masalas bring freshness and authenticity to your kitchen. Sourced from trusted farms and processed under strict quality standards, our products ensure purity, taste, and satisfaction in every pack. Shop premium Indian masalas online and elevate your cooking experience with flavors that celebrate India's rich culinary heritage.</p>
+        <!-- <p>Today our spices travel from select farms across India directly to your kitchen, roasted in small batches and packed within hours to lock in aroma. The same promise, at a scale our founder never imagined.</p> -->
+        <div class="row mt-3 g-3">
+          <div class="col-4 stat-block"><h3>62+</h3><small>Years Trusted</small></div>
+          <div class="col-4 stat-block"><h3>40+</h3><small>Spice Blends</small></div>
+          <div class="col-4 stat-block"><h3>2M+</h3><small>Homes Served</small></div>
+        </div>
+        <div class="mt-4">
+          <a href="#products" class="btn-crimson d-inline-block">Explore Products <i class="fa-solid fa-arrow-right ms-2"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CATEGORIES -->
+<section class="sec-pad category-section" id="categories">
+  <div class="container px-4">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <div class="eyebrow justify-content-center" style="color:rgba(255,255,255,.5);">Shop By Category</div>
+      <h2 class="section-title section-title-light">Find Your <em>Perfect Blend</em></h2>
+      <p style="color:rgba(255,255,255,.5);max-width:560px;margin:0 auto;text-align:center;">Every category ground to its own exact heat and aroma profile.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="0">
+        <div class="cat-card">
+          <div class="cat-card-bg" style="background-image:url('assets/image/home/chicken-masala.webp');"></div>
+          <div class="cat-overlay"><div class="cat-icon"><i class="fa-solid fa-drumstick-bite"></i></div><h5>Chicken Masala</h5><span>12 Products</span></div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="80">
+        <div class="cat-card">
+          <div class="cat-card-bg" style="background-image:url('assets/image/home/mutton-masala.webp');"></div>
+          <div class="cat-overlay"><div class="cat-icon"><i class="fa-solid fa-bone"></i></div><h5>Mutton Masala</h5><span>8 Products</span></div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="160">
+        <div class="cat-card">
+          <div class="cat-card-bg" style="background-image:url('assets/image/home/fish-masala.webp');"></div>
+          <div class="cat-overlay"><div class="cat-icon"><i class="fa-solid fa-fish"></i></div><h5>Fish Masala</h5><span>6 Products</span></div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="240">
+        <div class="cat-card">
+          <div class="cat-card-bg" style="background-image:url('assets/image/home/sambar-masala.webp');"></div>
+          <div class="cat-overlay"><div class="cat-icon"><i class="fa-solid fa-bowl-rice"></i></div><h5>Sambar Powder</h5><span>5 Products</span></div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="0">
+        <div class="cat-card">
+          <div class="cat-card-bg" style="background-image:url('assets/image/home/rasam-powder.webp');"></div>
+          <div class="cat-overlay"><div class="cat-icon"><i class="fa-solid fa-mug-hot"></i></div><h5>Rasam Powder</h5><span>4 Products</span></div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="80">
+        <div class="cat-card">
+          <div class="cat-card-bg" style="background-image:url('assets/image/home/chilli-powder.webp');"></div>
+          <div class="cat-overlay"><div class="cat-icon"><i class="fa-solid fa-pepper-hot"></i></div><h5>Chilli Powder</h5><span>7 Products</span></div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="160">
+        <div class="cat-card">
+          <div class="cat-card-bg" style="background-image:url('assets/image/home/turmeric-powder.webp');"></div>
+          <div class="cat-overlay"><div class="cat-icon"><i class="fa-solid fa-seedling"></i></div><h5>Turmeric Powder</h5><span>5 Products</span></div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="240">
+        <div class="cat-card">
+          <div class="cat-card-bg" style="background-image:url('assets/image/home/garam-masala.webp');"></div>
+          <div class="cat-overlay"><div class="cat-icon"><i class="fa-solid fa-star"></i></div><h5>Garam Masala</h5><span>9 Products</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="sec-pad product-section" id="products">
+  <div class="container px-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-5" data-aos="fade-up">
+      <div>
+        <div class="eyebrow">Bestsellers</div>
+        <h2 class="section-title">Our Most-Loved <em>Blends</em></h2>
+      </div>
+      <p style="max-width:380px;margin:0;font-size:.88rem;">Hand-roasted and stone-ground, tested in our own kitchens before yours.</p>
+    </div>
+    <div class="row g-4" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="sec-pad why-section">
+  <div class="container px-4">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <div class="eyebrow justify-content-center">Why Rangrez</div>
+      <h2 class="section-title">Crafted With <em>Integrity</em></h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0"><div class="why-card"><div class="why-icon"><i class="fa-solid fa-leaf"></i></div><h5>100% Natural</h5><p>No artificial colours or flavour enhancers — ever.</p></div></div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="80"><div class="why-card"><div class="why-icon"><i class="fa-solid fa-award"></i></div><h5>Premium Quality</h5><p>Sourced from select farms, graded by hand.</p></div></div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="160"><div class="why-card"><div class="why-icon"><i class="fa-solid fa-ban"></i></div><h5>No Preservatives</h5><p>Freshness sealed in, chemicals kept out.</p></div></div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0"><div class="why-card"><div class="why-icon"><i class="fa-solid fa-box-open"></i></div><h5>Hygienic Packaging</h5><p>Sealed in food-grade, tamper-proof pouches.</p></div></div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="80"><div class="why-card"><div class="why-icon"><i class="fa-solid fa-truck-fast"></i></div><h5>Fast Delivery</h5><p>Dispatched within 24 hours, tracked end-to-end.</p></div></div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="160"><div class="why-card"><div class="why-icon"><i class="fa-solid fa-handshake"></i></div><h5>Trusted Brand</h5><p>Two million households, sixty-two years strong.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFERS -->
+<section class="sec-pad offer-section" id="offers">
+  <div class="container px-4">
+    <div class="offer-banner" data-aos="zoom-in">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <div class="flash-badge"><i class="fa-solid fa-bolt me-1"></i> Flash Sale — This Week Only</div>
+          <h2 class="section-title" style="color:#fff;font-size:clamp(1.8rem,3.5vw,3rem);">Festival Stock-Up.<br>Flat <em style="color:rgba(255,255,255,.6);">30% Off.</em></h2>
+          <p style="color:rgba(255,255,255,.6);text-align:left;">Limited-edition gift tins — while stocks last. Offer ends in:</p>
+          <div class="countdown">
+            <div class="cd-box"><div class="num" id="cdDays">02</div><div class="lab">Days</div></div>
+            <div class="cd-box"><div class="num" id="cdHours">14</div><div class="lab">Hrs</div></div>
+            <div class="cd-box"><div class="num" id="cdMins">36</div><div class="lab">Min</div></div>
+            <div class="cd-box"><div class="num" id="cdSecs">10</div><div class="lab">Sec</div></div>
+          </div>
+          <a href=""></a>
+          <button class="btn-white">  <a href="https://wa.me/916369961587" style="color: var(--crimson-deep);">Grab The Offer <i class="fa-solid fa-fire ms-2"></i></button></a>
+        </div>
+        <div class="col-lg-5 d-none d-lg-block text-center">
+          <img src="assets/image/home/masala-powders.webp" class="img-fluid  rounded-3" alt="Festival spice tin">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec-pad testi-section">
+  <div class="container px-4">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <div class="eyebrow justify-content-center">Customer Love</div>
+      <h2 class="section-title">Stories From <em>Real Kitchens</em></h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="0">
+        <div class="testi-card"><span class="testi-quote">"</span>
+          <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p>The garam masala genuinely tastes like my grandmother's tin — that warm, almost smoky depth you can't get from supermarket blends anymore.</p>
+          <div class="testi-person"><img src="https://i.pravatar.cc/100?img=47" alt="Anita Deshmukh"><div><h6>Anita Deshmukh</h6><small>Pune, Maharashtra</small></div></div>
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="120">
+        <div class="testi-card"><span class="testi-quote">"</span>
+          <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+          <p>Ordered for Diwali and the chicken masala disappeared within a week. Reordering the whole festival kit this time.</p>
+          <div class="testi-person"><img src="https://i.pravatar.cc/100?img=12" alt="Rohit Verma"><div><h6>Rohit Verma</h6><small>Lucknow, UP</small></div></div>
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="240">
+        <div class="testi-card"><span class="testi-quote">"</span>
+          <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p>Packaging arrived perfectly sealed, the sambar powder smells incredible straight out of the pouch. Worth every rupee.</p>
+          <div class="testi-person"><img src="https://i.pravatar.cc/100?img=33" alt="Meera Iyer"><div><h6>Meera Iyer</h6><small>Chennai, TN</small></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECIPES -->
+<section class="sec-pad recipe-section" id="recipes">
+  <div class="container px-4">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <div class="eyebrow justify-content-center">From Our Kitchen</div>
+      <h2 class="section-title">Recipes Worth <em>Repeating</em></h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="0">
+        <div class="recipe-card">
+          <div class="recipe-img"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop" alt="Butter chicken"></div>
+          <div class="recipe-body">
+            <span class="recipe-time"><i class="fa-regular fa-clock me-1"></i> 35 Min</span>
+            <h5>Restaurant-Style Butter Chicken</h5>
+            <p style="font-size:.87rem;">A weeknight version of the classic, built around our Chicken Masala for unmistakable depth.</p>
+            <a href="#" class="read-more">Read Recipe <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="120">
+        <div class="recipe-card">
+          <div class="recipe-img"><img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=600&auto=format&fit=crop" alt="Mutton curry"></div>
+          <div class="recipe-body">
+            <span class="recipe-time"><i class="fa-regular fa-clock me-1"></i> 50 Min</span>
+            <h5>Slow-Cooked Mutton Curry</h5>
+            <p style="font-size:.87rem;">Low heat, long simmer — let the Mutton Masala do the heavy lifting on this Sunday favourite.</p>
+            <a href="#" class="read-more">Read Recipe <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="240">
+        <div class="recipe-card">
+          <div class="recipe-img"><img src="assets/image/home/sambar-receipe.webp" alt="South Indian sambar"></div>
+          <div class="recipe-body">
+            <span class="recipe-time"><i class="fa-regular fa-clock me-1"></i> 25 Min</span>
+            <h5>Classic South Indian Sambar</h5>
+            <p style="font-size:.87rem;">Tangy, comforting, ready in under 30 minutes with our stone-ground Sambar Powder.</p>
+            <a href="#" class="read-more">Read Recipe <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="container px-4 text-center">
+    <div class="eyebrow justify-content-center" style="color:rgba(255,255,255,.55);">Stay In The Loop</div>
+    <h2 style="color:#fff;font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);">Recipes, Offers & New Blends —<br><em>Straight To You.</em></h2>
+    <form class="newsletter-form mt-4" id="newsletterForm">
+      <input type="email" id="nsEmail" placeholder="Enter your email address" required>
+      <button type="submit" class="btn-white">Subscribe</button>
+    </form>
+    <p class="ns-success" id="nsSuccess"><i class="fa-solid fa-circle-check me-1"></i> You're subscribed! Welcome to the family.</p>
+  </div>
+</section>
+
+</main>
+
+<div id="footer"></div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+
+<script>
+// ── NAV INIT — called after header.html is injected ──
+function initCaddNav() {
+  // Navbar scroll effect
+  const nav = document.getElementById('mainNav');
+  if (nav) window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 70));
+
+  // Cart drawer
+  const cartIconBtn = document.getElementById('cartIconBtn');
+  const drawer      = document.getElementById('cartDrawer');
+  const overlay     = document.getElementById('cartOverlay');
+  if (cartIconBtn && drawer && overlay) {
+    cartIconBtn.addEventListener('click', () => { drawer.classList.add('open'); overlay.classList.add('show'); document.body.style.overflow = 'hidden'; });
+    document.getElementById('closeCart').addEventListener('click', () => { drawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow = ''; });
+    overlay.addEventListener('click', () => { drawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow = ''; });
+  }
+
+  // Checkout button
+  document.getElementById('checkoutBtn')?.addEventListener('click', () => {
+    if (!cart.length) { showToast('Your cart is empty!'); return; }
+    showToast('Redirecting to secure checkout…');
+  });
+
+  // Wishlist drawer
+  const wishlistNavBtn = document.getElementById('wishlistNavBtn');
+  const wishlistDrawer = document.getElementById('wishlistDrawer');
+  if (wishlistNavBtn && wishlistDrawer) {
+    wishlistNavBtn.addEventListener('click', () => { wishlistDrawer.classList.add('open'); overlay.classList.add('show'); document.body.style.overflow = 'hidden'; });
+    document.getElementById('closeWishlist').addEventListener('click', () => { wishlistDrawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow = ''; });
+  }
+
+  // Move all wishlist items to cart
+  document.getElementById('moveAllToCart')?.addEventListener('click', () => {
+    if (!wishlist.length) { showToast('Your wishlist is empty!'); return; }
+    wishlist.forEach(id => {
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+      const ex = cart.find(i => i.id === id);
+      if (ex) ex.qty += 1; else cart.push({ ...p, qty: 1 });
+    });
+    wishlist = [];
+    saveCart(); renderWishlist();
+    showToast('All wishlist items moved to cart!');
+    wishlistDrawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow = '';
+  });
+
+  // Auth / Profile modal
+  document.getElementById('profileNavBtn')?.addEventListener('click', () => {
+    document.getElementById('authOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  document.getElementById('authClose')?.addEventListener('click', () => {
+    document.getElementById('authOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  });
+  document.getElementById('authOverlay')?.addEventListener('click', e => {
+    if (e.target.id === 'authOverlay') { e.target.classList.remove('open'); document.body.style.overflow = ''; }
+  });
+  document.querySelectorAll('.auth-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab + 'Form').classList.add('active');
+    });
+  });
+
+  // Search overlay
+  document.getElementById('searchNavBtn')?.addEventListener('click', () => {
+    document.getElementById('searchOverlay').classList.add('open');
+    setTimeout(() => document.getElementById('searchInputMain')?.focus(), 200);
+  });
+  document.getElementById('searchCloseBtn')?.addEventListener('click', () => {
+    document.getElementById('searchOverlay').classList.remove('open');
+  });
+  document.getElementById('searchInputMain')?.addEventListener('input', function () {
+    const q = this.value.trim().toLowerCase();
+    const list = document.getElementById('searchResultsList');
+    if (!q) { list.innerHTML = ''; return; }
+    const results = products.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q)).slice(0, 6);
+    if (!results.length) { list.innerHTML = '<p style="color:rgba(255,255,255,.4);font-size:.85rem;margin-top:14px;">No products found.</p>'; return; }
+    list.innerHTML = results.map(p => `
+      <div class="search-result-item" style="display:flex;align-items:center;gap:12px;padding:10px;cursor:pointer;border-radius:8px;transition:background .2s;"
+           onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background='transparent'">
+        <img src="${p.img}" alt="${p.name}" style="width:44px;height:44px;border-radius:8px;object-fit:cover;">
+        <div>
+          <h6 style="margin:0;font-size:.88rem;color:#fff;">${p.name}</h6>
+          <span style="font-size:.8rem;color:var(--gold-light);">₹${p.price} <del style="opacity:.5;">₹${p.old}</del></span>
+        </div>
+      </div>`).join('');
+  });
+
+  // ESC key closes overlays
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    document.getElementById('searchOverlay')?.classList.remove('open');
+    document.getElementById('authOverlay')?.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+
+  // Sync counts now that nav is in DOM
+  renderCart();
+  renderWishlist();
+}
+
+fetch("./header.html")
+  .then(r => r.text())
+  .then(html => {
+    document.getElementById("header").innerHTML = html;
+    initCaddNav();
+  });
+
+fetch('footer.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('footer').innerHTML = data;
+  });
+</script>
+
+
+<script>
+// PRELOADER
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('preloader').classList.add('hide'),500));
+
+// AOS
+AOS.init({duration:650,once:true,offset:50});
+
+// NAVBAR scroll is handled in initCaddNav() after the header loads
+
+// CART & WISHLIST — declared first so product grid render can read them
+let cart = JSON.parse(localStorage.getItem('rangrez_cart_v2') || '[]');
+let wishlist = JSON.parse(localStorage.getItem('rangrez_wishlist_v1') || '[]');
+
+// PRODUCTS
+const products = [
+  {id:1,name:"Royal Garam Masala",cat:"Garam Masala",img:"assets/image/home/garam-masala.webp",price:189,old:240,rating:4.8,reviews:312,stock:"In Stock"},
+  {id:2,name:"Hyderabadi Chicken Masala",cat:"Chicken Masala",img:"assets/image/home/chicken-masala.webp",price:165,old:200,rating:4.7,reviews:248,stock:"In Stock"},
+  {id:3,name:"Kashmiri Mutton Masala",cat:"Mutton Masala",img:"assets/image/home/mutton-masala.webp",price:210,old:260,rating:4.9,reviews:189,stock:"Only 6 left"},
+  {id:4,name:"Coastal Fish Masala",cat:"Fish Masala",img:"assets/image/home/fish-masala.webp",price:155,old:190,rating:4.6,reviews:144,stock:"In Stock"},
+  {id:5,name:"Tangy Sambar Powder",cat:"Sambar Powder",img:"assets/image/home/sambar-masala.webp",price:120,old:150,rating:4.7,reviews:201,stock:"In Stock"},
+  {id:6,name:"Pure Turmeric Powder",cat:"Turmeric Powder",img:"assets/image/home/turmeric-powder.webp",price:95,old:120,rating:4.9,reviews:410,stock:"In Stock"},
+  {id:7,name:"Fiery Chilli Powder",cat:"Chilli Powder",img:"assets/image/home/chilli-powder.webp",price:110,old:140,rating:4.5,reviews:167,stock:"Only 4 left"},
+  {id:8,name:"Classic Rasam Powder",cat:"Rasam Powder",img:"assets/image/home/rasam-powder.webp",price:105,old:130,rating:4.6,reviews:132,stock:"In Stock"},
+];
+
+document.getElementById('productGrid').innerHTML = products.map(p => {
+  const inWishlist = wishlist.includes(p.id);
+  return `
+  <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-product-id="${p.id}">
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <span class="badge-fresh">Fresh Batch</span>
+        <span class="badge-stock">${p.stock}</span>
+        <img src="${p.img}" alt="${p.name}" loading="lazy">
+        <button class="wishlist-fab ${inWishlist ? 'active' : ''}" onclick="toggleWishlist(this,${p.id})" aria-label="Wishlist">
+          <i class="${inWishlist ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+        </button>
+      </div>
+      <div class="product-body">
+        <span class="product-cat-tag">${p.cat}</span>
+        <h3 class="product-title">${p.name}</h3>
+        <div class="product-rating">
+          ${'<i class="fa-solid fa-star"></i>'.repeat(Math.floor(p.rating))}${p.rating % 1 ? '<i class="fa-solid fa-star-half-stroke"></i>' : ''}
+          <span>${p.rating} (${p.reviews})</span>
+        </div>
+        <div class="price-row"><span class="price-now">₹${p.price}</span><span class="price-old">₹${p.old}</span></div>
+        <div class="cart-action-row">
+          <div class="qty-selector">
+            <button onclick="changeQty(this,-1)">−</button>
+            <input type="text" value="1" readonly>
+            <button onclick="changeQty(this,1)">+</button>
+          </div>
+          <button class="btn-add-cart" onclick="addToCart(event,${p.id})"><i class="fa-solid fa-cart-plus me-1"></i>Add</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}).join('');
+
+function changeQty(btn, dir) { const i = btn.parentElement.querySelector('input'); let v = parseInt(i.value) + dir; if (v < 1) v = 1; i.value = v; }
+function toggleWishlist(btn, id) {
+  const idx = wishlist.indexOf(id);
+  if (idx > -1) {
+    wishlist.splice(idx, 1);
+    btn.classList.remove('active');
+    btn.querySelector('i').className = 'fa-regular fa-heart';
+    showToast('Removed from wishlist');
+  } else {
+    wishlist.push(id);
+    btn.classList.add('active');
+    btn.querySelector('i').className = 'fa-solid fa-heart';
+    showToast('Added to wishlist!');
+  }
+  saveWishlist();
+}
+
+function saveCart() { localStorage.setItem('rangrez_cart_v2', JSON.stringify(cart)); renderCart(); }
+function saveWishlist() { localStorage.setItem('rangrez_wishlist_v1', JSON.stringify(wishlist)); renderWishlist(); }
+
+function renderCart() {
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  const cartCountEl = document.getElementById('cartCount');
+  if (cartCountEl) cartCountEl.textContent = count;
+  const container = document.getElementById('cartItemsContainer');
+  const subtotalEl = document.getElementById('cartSubtotal');
+  if (!container) return;
+  if (!cart.length) {
+    container.innerHTML = '<p class="text-center mt-5" style="color:var(--text-soft);">Your cart is empty. Time to spice things up!</p>';
+    if (subtotalEl) subtotalEl.textContent = '₹0';
+    return;
+  }
+  let sub = 0;
+  container.innerHTML = cart.map((item, idx) => {
+    sub += item.price * item.qty;
+    return `<div class="cart-item">
+      <img src="${item.img}" alt="${item.name}">
+      <div class="cart-item-info">
+        <h6>${item.name}</h6>
+        <small>₹${item.price} × ${item.qty} = ₹${item.price * item.qty}</small>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+          <button onclick="changeCartQty(${idx},-1)" style="width:24px;height:24px;border-radius:50%;border:1px solid rgba(139,0,0,.2);background:transparent;cursor:pointer;color:var(--crimson);">−</button>
+          <span style="font-size:.82rem;font-weight:600;">${item.qty}</span>
+          <button onclick="changeCartQty(${idx},1)" style="width:24px;height:24px;border-radius:50%;border:1px solid rgba(139,0,0,.2);background:transparent;cursor:pointer;color:var(--crimson);">+</button>
+        </div>
+      </div>
+      <i class="fa-solid fa-trash remove-item" onclick="removeFromCart(${idx})"></i>
+    </div>`;
+  }).join('');
+  if (subtotalEl) subtotalEl.textContent = '₹' + sub;
+}
+
+function renderWishlist() {
+  const countEl = document.getElementById('wishlistCount');
+  if (countEl) { countEl.textContent = wishlist.length; countEl.style.display = wishlist.length > 0 ? 'flex' : 'none'; }
+  const container = document.getElementById('wishlistItemsContainer');
+  if (!container) return;
+  if (!wishlist.length) {
+    container.innerHTML = '<p class="text-center mt-5 px-4" style="color:var(--text-soft);">No favourites yet — tap the heart on any product.</p>';
+    return;
+  }
+  container.innerHTML = wishlist.map(id => {
+    const p = products.find(x => x.id === id);
+    if (!p) return '';
+    return `<div class="wishlist-item" style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);">
+      <img src="${p.img}" alt="${p.name}" style="width:56px;height:56px;border-radius:8px;object-fit:cover;">
+      <div style="flex:1;">
+        <h6 style="margin:0;font-size:.88rem;">${p.name}</h6>
+        <span style="color:var(--crimson);font-weight:700;">₹${p.price}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <button onclick="addToCartFromWishlist(${p.id})" style="font-size:.7rem;padding:5px 10px;background:var(--crimson);color:#fff;border:none;border-radius:4px;cursor:pointer;">Add to Cart</button>
+        <button onclick="removeWishlistItem(${p.id})" style="font-size:.7rem;padding:5px 10px;background:transparent;color:var(--text-soft);border:1px solid rgba(139,0,0,.2);border-radius:4px;cursor:pointer;">Remove</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function changeCartQty(idx, dir) { cart[idx].qty = Math.max(1, cart[idx].qty + dir); saveCart(); }
+function removeFromCart(idx) { cart.splice(idx, 1); saveCart(); }
+function removeWishlistItem(id) { wishlist = wishlist.filter(x => x !== id); saveWishlist(); updateWishlistButtons(); }
+function addToCartFromWishlist(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  const ex = cart.find(i => i.id === id);
+  if (ex) ex.qty += 1; else cart.push({ ...p, qty: 1 });
+  saveCart();
+  showToast(p.name + ' added to cart!');
+}
+function updateWishlistButtons() {
+  document.querySelectorAll('.wishlist-fab').forEach(btn => {
+    const card = btn.closest('[data-product-id]');
+    const id = card ? parseInt(card.dataset.productId) : null;
+    if (id === null) return;
+    const active = wishlist.includes(id);
+    btn.classList.toggle('active', active);
+    btn.querySelector('i').className = active ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+  });
+}
+
+function addToCart(e, id) {
+  const p = products.find(x => x.id === id);
+  const btn = e.currentTarget;
+  const row = btn.closest('.cart-action-row');
+  const qty = row ? (parseInt(row.querySelector('.qty-selector input').value) || 1) : 1;
+  const ex = cart.find(i => i.id === id);
+  if (ex) ex.qty += qty; else cart.push({ ...p, qty });
+  saveCart();
+  showToast(p.name + ' added to cart!');
+  launchPacket(btn, p);
+}
+
+// ── CROSS-SECTION FLYING PACKET ──
+const csp=document.getElementById('crossSectionPacket');
+function launchPacket(btn,p){
+  const cartIcon=document.getElementById('cartIconBtn');
+  const bRect=btn.getBoundingClientRect();
+  const cRect=cartIcon.getBoundingClientRect();
+  csp.style.transition='none';
+  csp.style.left=bRect.left+'px';
+  csp.style.top=bRect.top+'px';
+  csp.style.opacity='1';
+  csp.style.transform='scale(1) rotate(0deg)';
+  requestAnimationFrame(()=>{
+    csp.style.transition='all 0.9s cubic-bezier(0.18,0.89,0.32,1.28)';
+    csp.style.left=cRect.left+'px';
+    csp.style.top=cRect.top+'px';
+    csp.style.opacity='0.15';
+    csp.style.transform='scale(0.15) rotate(720deg)';
+  });
+  setTimeout(()=>{csp.style.opacity='0';csp.style.transition='none';},950);
+  // bounce cart icon
+  setTimeout(()=>{cartIcon.style.transition='transform .15s';cartIcon.style.transform='scale(1.35)';},880);
+  setTimeout(()=>{cartIcon.style.transform='scale(1)';},1080);
+}
+
+// Cart open/close and renderCart are handled by initCaddNav() after header loads
+
+// AUTH
+function handleLogin() {
+  document.getElementById('authOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  showToast('Welcome back to Rangrez Masale!');
+}
+function handleRegister() {
+  document.getElementById('authOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  showToast('Account created! Welcome to the family!');
+}
+
+// TOAST
+function showToast(msg){
+  const t=document.getElementById('toastLuxe');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// RIPPLE
+document.addEventListener('click',function(e){
+  const btn=e.target.closest('.btn-white,.btn-crimson,.btn-white-outline');
+  if(!btn)return;
+  const r=document.createElement('span');
+  r.className='ripple-effect';
+  const rect=btn.getBoundingClientRect();
+  const size=Math.max(rect.width,rect.height)*2;
+  r.style.width=r.style.height=size+'px';
+  r.style.left=(e.clientX-rect.left-size/2)+'px';
+  r.style.top=(e.clientY-rect.top-size/2)+'px';
+  btn.style.position='relative';
+  btn.appendChild(r);
+  setTimeout(()=>r.remove(),700);
+});
+
+// COUNTDOWN
+let target=Date.now()+(2*86400+14*3600+36*60+10)*1000;
+function tick(){
+  let d=Math.max(0,target-Date.now());
+  const dd=Math.floor(d/86400000);d%=86400000;
+  const hh=Math.floor(d/3600000);d%=3600000;
+  const mm=Math.floor(d/60000);d%=60000;
+  const ss=Math.floor(d/1000);
+  document.getElementById('cdDays').textContent=String(dd).padStart(2,'0');
+  document.getElementById('cdHours').textContent=String(hh).padStart(2,'0');
+  document.getElementById('cdMins').textContent=String(mm).padStart(2,'0');
+  document.getElementById('cdSecs').textContent=String(ss).padStart(2,'0');
+}
+setInterval(tick,1000);tick();
+
+// NEWSLETTER
+document.getElementById('newsletterForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  if(document.getElementById('nsEmail').value){
+    document.getElementById('nsSuccess').style.display='block';
+    this.reset();
+    setTimeout(()=>document.getElementById('nsSuccess').style.display='none',4000);
+  }
+});
+
+// HERO PACKET PRODUCT ROTATION
+const packetNames=["Royal Garam\nMasala","Chicken\nMasala","Mutton\nMasala","Sambar\nPowder","Chilli\nPowder"];
+let pi=0;
+setInterval(()=>{pi=(pi+1)%packetNames.length;const el=document.getElementById('packetProductName');if(el){el.style.opacity='0';el.style.transform='translateY(10px)';setTimeout(()=>{el.innerHTML=packetNames[pi].replace('\n','<br>');el.style.opacity='1';el.style.transform='translateY(0)';el.style.transition='all .5s ease';},350);}},3500);
+if(document.getElementById('packetProductName')) document.getElementById('packetProductName').style.transition='all .5s ease';
+
+// MOUSE-PARALLAX on hero packet
+const packet=document.getElementById('heroPacket');
+if(packet){
+  document.addEventListener('mousemove',e=>{
+    const rx=(e.clientY/window.innerHeight-.5)*20;
+    const ry=(e.clientX/window.innerWidth-.5)*30;
+    packet.style.animationPlayState='paused';
+    packet.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) translateY(-10px)`;
+  });
+  document.addEventListener('mouseleave',()=>{
+    packet.style.animationPlayState='running';
+    packet.style.transform='';
+  });
+}
+</script>
+</body>
+</html>
