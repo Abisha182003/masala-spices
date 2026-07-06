@@ -6,13 +6,7 @@
 <title>Products |   Vinay Spices  — Premium Spice Collection</title>
 <link rel="stylesheet" href="style.css">
 <meta name="description" content="Shop   Vinay Spices premium spice collection — hand-roasted, lab-tested, 100% natural masala blends. Free delivery above ₹499.">
-<style>
-.filter-bar .row.g-3>[class*="col-"]{align-self:flex-start;}
-.filter-bar .filter-search input,
-.filter-bar .sort-select{height:44px;}
-.filter-bar .filter-chips-row{padding-top:2px;}
 
-</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
@@ -20,6 +14,22 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
 
 <style>
+     @media(max-width:768px){
+  #pdOverlay .pd-gallery .pd-thumb-row{display:none;}
+  #pdOverlay .pd-gallery .pd-main-img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;margin-bottom:0;}
+  
+  #allProductsGrid > [class*="col-"],
+#bestSellersGrid > [class*="col-"],
+#newArrivalsGrid > [class*="col-"]{
+  flex:0 0 100%;
+  max-width:100%;
+  width:100%;
+}
+}
+.filter-bar .row.g-3>[class*="col-"]{align-self:flex-start;}
+.filter-bar .filter-search input,
+.filter-bar .sort-select{height:44px;}
+.filter-bar .filter-chips-row{padding-top:2px;}
 
 </style>
 </head>
