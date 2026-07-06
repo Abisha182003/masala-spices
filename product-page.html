@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Products | Rangrez Masale — Premium Spice Collection</title>
+<title>Products |   Vinay Spices  — Premium Spice Collection</title>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="Shop Rangrez Masale's premium spice collection — hand-roasted, lab-tested, 100% natural masala blends. Free delivery above ₹499.">
+<meta name="description" content="Shop   Vinay Spices premium spice collection — hand-roasted, lab-tested, 100% natural masala blends. Free delivery above ₹499.">
 <style>
 .filter-bar .row.g-3>[class*="col-"]{align-self:flex-start;}
 .filter-bar .filter-search input,
@@ -38,7 +38,7 @@
 <!-- CROSS-SECTION FLYING PACKET -->
 <div id="crossSectionPacket">
   <div class="csp-inner">
-    <div class="csp-stripe"><span class="csp-brand-text">RANGREZ MASALE</span></div>
+    <div class="csp-stripe"><span class="csp-brand-text">  Vinay Spices </span></div>
     <div class="csp-body"><div class="csp-r">R</div><div class="csp-tag">Est. 1962</div></div>
     <div class="csp-bottom"><span class="csp-weight">100g · NATURAL</span></div>
   </div>
@@ -630,7 +630,7 @@ fetch("./header.html")
 
 <script>
 /* ═══════════════════════════════════════════════════════
-   RANGREZ MASALE — products.html JavaScript
+     Vinay Spices  — products.html JavaScript
    ═══════════════════════════════════════════════════════ */
 
 // ── PRODUCT DATA ──────────────────────────────────────
@@ -1047,7 +1047,7 @@ function openDetail(id) {
   </div>`).join('');
 
   document.getElementById('pdInfo').innerHTML = `
-    <div class="pd-brand-tag">Rangrez Masale — Est. 1962</div>
+    <div class="pd-brand-tag">  Vinay Spices  — Est. 1962</div>
     <h2 class="pd-title">${p.name}</h2>
     <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
       <div style="display:flex;gap:3px;">${starsHTML(p.rating)}</div>
@@ -1268,7 +1268,7 @@ document.querySelectorAll('.auth-tab').forEach(tab => {
 function handleLogin() {
   document.getElementById('authOverlay').classList.remove('open');
   document.body.style.overflow = '';
-  showToast('Welcome back to Rangrez Masale!');
+  showToast('Welcome back to   Vinay Spices !');
 }
 
 function handleRegister() {
@@ -1319,7 +1319,7 @@ function closeSearchGo(id) {
 function shareProduct(id) {
   const p = allProducts.find(x => x.id === id);
   if (navigator.share) {
-    navigator.share({ title: p.name, text: `Check out ${p.name} from Rangrez Masale!`, url: window.location.href });
+    navigator.share({ title: p.name, text: `Check out ${p.name} from   Vinay Spices !`, url: window.location.href });
   } else {
     navigator.clipboard.writeText(window.location.href).then(() => showToast('Product link copied!'));
   }
