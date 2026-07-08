@@ -1962,7 +1962,12 @@ footer a:hover{color:rgba(255,255,255,.85);padding-left:5px;}
 .view-all-link:hover{gap:10px;color:var(--crimson);}
 
 /* ── BEST SELLERS LABEL ── */
-.bs-label{position:absolute;top:12px;left:12px;z-index:2;background:var(--gold);color:var(--charcoal);font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:2px;display:flex;align-items:center;gap:4px;}
+.bs-label{position:absolute;top:12px;
+          /* left:12px; */
+          right:0px;
+          z-index:2;background:var(--gold);
+          color:white;
+          font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:2px;display:flex;align-items:center;gap:4px;}
 
 /* ── PRODUCT DETAIL MODAL ── */
 .pd-overlay{position:fixed;inset:0;background:rgba(26,10,10,.88);z-index:1300;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .3s;padding:20px;backdrop-filter:blur(10px);}
